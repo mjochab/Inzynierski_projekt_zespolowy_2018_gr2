@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="start.FXMLwykladowcaController">
+   <children>
+      <ImageView blendMode="MULTIPLY" fitHeight="410.0" fitWidth="659.0" pickOnBounds="true">
+         <image>
+            <Image url="@tlo.jpg" />
+         </image>
+      </ImageView>
+      <Button layoutX="32.0" layoutY="110.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="88.0" text="Edycja ocen" textAlignment="CENTER" />
+      <Button layoutX="32.0" layoutY="154.0" mnemonicParsing="false" text="Plan zajęć" textAlignment="CENTER" />
+      <Button layoutX="32.0" layoutY="198.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="Lista studentów" textAlignment="CENTER" textOverrun="CENTER_WORD_ELLIPSIS" />
+      <Label contentDisplay="CENTER" layoutX="293.0" layoutY="14.0" prefHeight="17.0" prefWidth="74.0" text="Wykładowca" textAlignment="CENTER" />
+      <Button fx:id="Logout" layoutX="291.0" layoutY="314.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="88.0" text="Wyloguj" textAlignment="CENTER" />
+   </children>
+</AnchorPane>
