@@ -16,13 +16,11 @@ import javafx.stage.Stage;
 public class FXMLdziekanatController implements Initializable {
 
     @FXML
-    private Button EditGrade;
-    @FXML
     private Button EditStudent;
     @FXML
-    private Button EditClass;
-    @FXML
     private Button Logout;
+    @FXML 
+    private Button Wnioski;
 
 
   
@@ -45,6 +43,34 @@ public class FXMLdziekanatController implements Initializable {
         
                 stage.setScene(scene);
                 stage.show(); 
+    }
+    
+    @FXML
+    private void redirectToEditStudent(ActionEvent event) throws IOException {
+        Stage dialogStage = (Stage)EditStudent.getScene() .getWindow();
+        dialogStage.close();
+        
+        Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("FXMLeditStudent.fxml"));
+        
+        Scene scene = new Scene(root);
+        
+                stage.setScene(scene);
+                stage.show();
+    }
+    
+    @FXML
+    private void redirectToWnioski(ActionEvent event) throws IOException {
+        Stage dialogStage = (Stage) Wnioski.getScene() .getWindow();
+        dialogStage.close();
+        
+        Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass() .getResource("FXMLwnioski.fxml"));
+                
+        Scene scene = new Scene(root);
+                
+                stage.setScene(scene);
+                stage.show();
     }
 
 }
