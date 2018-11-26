@@ -1,4 +1,3 @@
-
 package start;
 
 import java.io.IOException;
@@ -25,9 +24,9 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class FXMLDocumentController implements Initializable {
+
     Connection myConn = null;
-    
-    
+
     private Label label;
     @FXML
     private Pane logPane;
@@ -49,80 +48,83 @@ public class FXMLDocumentController implements Initializable {
     private Button buttonLog;
     @FXML
     private Label labelOne;
-    
+
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException, SQLException {
-        Stage dialogStage = (Stage) buttonLog.getScene().getWindow();
-        dialogStage.close();
-        
-           Statement st;
-           ResultSet rs;
-        if(rbStudent.isSelected()){
-             myConn = ConnectionManager.getConnection();
-          
-        st = myConn.createStatement();
-         String searchQuery;
-               rs = st.executeQuery("SELECT * FROM student WHERE nr_indeksu" + " = '" + UserField.getText() + "' or haslo = '" + PassField.getText() + "'");
-            if(rs.next()){
-            
-                Stage stage = new Stage(); 
+
+        Statement st;
+        ResultSet rs;
+        if (rbStudent.isSelected()) {
+            myConn = ConnectionManager.getConnection();
+
+            st = myConn.createStatement();
+            String searchQuery;
+            rs = st.executeQuery("SELECT * FROM student WHERE nr_indeksu" + " = '" + UserField.getText() + "' or haslo = '" + PassField.getText() + "'");
+            if (rs.next()) {
+
+                Stage stage = new Stage();
                 Parent root = FXMLLoader.load(getClass().getResource("FXMLstudent.fxml"));
-        
+
                 Scene scene = new Scene(root);
-        
+
                 stage.setScene(scene);
-                stage.show(); 
-            }
-                
-            else {
-               
+                stage.show();
+                Stage dialogStage = (Stage) buttonLog.getScene().getWindow();
+                dialogStage.close();
+            } else {
+
                 labelOne.setText("Nieprawidłowe hasło lub identyfikator!");
             }
-            } else if(rbWykladowca.isSelected()) {
-            
-                myConn = ConnectionManager.getConnection();
-          
-        st = myConn.createStatement();
-         String searchQuery;
-               rs = st.executeQuery("SELECT * FROM wykladowca WHERE wykladowca_id" + " = '" + UserField.getText() + "' and haslo = '" + PassField.getText() + "'");
-            if(rs.next()){
-                Stage stage = new Stage(); 
+        } else if (rbWykladowca.isSelected()) {
+
+            myConn = ConnectionManager.getConnection();
+
+            st = myConn.createStatement();
+            String searchQuery;
+            rs = st.executeQuery("SELECT * FROM wykladowca WHERE id_wykladowca" + " = '" + UserField.getText() + "' and haslo = '" + PassField.getText() + "'");
+            if (rs.next()) {
+                Stage stage = new Stage();
                 Parent root = FXMLLoader.load(getClass().getResource("FXMLwykladowca.fxml"));
-        
+
                 Scene scene = new Scene(root);
-        
+
                 stage.setScene(scene);
-                stage.show(); }
-            else {
-               
+                stage.show();
+                Stage dialogStage = (Stage) buttonLog.getScene().getWindow();
+                dialogStage.close();
+            } else {
+
                 labelOne.setText("Nieprawidłowe hasło lub identyfikator!");
             }
-            } else if(rbDziekanat.isSelected()){
-            
-                  myConn = ConnectionManager.getConnection();
-          
-        st = myConn.createStatement();
-         String searchQuery;
-               rs = st.executeQuery("SELECT * FROM dziekanat WHERE id_pracownika" + " = '" + UserField.getText() + "' and haslo = '" + PassField.getText() + "'");
-            if(rs.next()){
-            
-                Stage stage = new Stage(); 
+        } else if (rbDziekanat.isSelected()) {
+
+            myConn = ConnectionManager.getConnection();
+
+            st = myConn.createStatement();
+            String searchQuery;
+            rs = st.executeQuery("SELECT * FROM dziekanat WHERE id_pracownika" + " = '" + UserField.getText() + "' and haslo = '" + PassField.getText() + "'");
+            if (rs.next()) {
+
+                Stage stage = new Stage();
                 Parent root = FXMLLoader.load(getClass().getResource("FXMLdziekanat.fxml"));
-        
+
                 Scene scene = new Scene(root);
-        
+
                 stage.setScene(scene);
-                stage.show(); }
-            else {
-               
+                stage.show();
+                Stage dialogStage = (Stage) buttonLog.getScene().getWindow();
+                dialogStage.close();
+            } else {
+
                 labelOne.setText("Nieprawidłowe hasło lub identyfikator!");
             }
-            
-            }
+
         }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
 }
