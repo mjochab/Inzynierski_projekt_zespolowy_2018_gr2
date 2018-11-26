@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import java.net.URL?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -23,7 +15,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="image" prefHeight="623.0" prefWidth="799.0" styleClass="image" stylesheets="@wyglad.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="start.FXMLDocumentController">
+<AnchorPane id="AnchorPane" fx:id="image" prefHeight="623.0" prefWidth="799.0" styleClass="image" stylesheets="@wyglad.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="start.FXMLDocumentController">
     <children>
       <Pane fx:id="logPane" cacheShape="false" layoutX="117.0" layoutY="31.0" prefHeight="592.0" prefWidth="566.0" styleClass="logPane" AnchorPane.bottomAnchor="15.5" AnchorPane.leftAnchor="116.5" AnchorPane.rightAnchor="116.5" AnchorPane.topAnchor="15.5">
          <cursor>
@@ -60,7 +52,7 @@
                <font>
                   <Font size="24.0" />
                </font></RadioButton>
-            <Button fx:id="buttonLog" layoutX="75.0" layoutY="501.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleButtonAction" opacity="0.67" prefHeight="67.0" prefWidth="402.0" styleClass="buttonLog" stylesheets="@wyglad.css" text="Zaloguj">
+            <Button fx:id="buttonLog" layoutX="83.0" layoutY="500.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleButtonAction" opacity="0.67" prefHeight="67.0" prefWidth="402.0" styleClass="buttonLog" stylesheets="@wyglad.css" text="Zaloguj">
                <font>
                   <Font name="Arial" size="36.0" />
                </font>
@@ -73,7 +65,7 @@
                   <Image url="@logo.png" />
                </image>
             </ImageView>
-            <Label fx:id="labelOne" alignment="TOP_CENTER" layoutX="98.0" layoutY="492.0" prefHeight="17.0" prefWidth="371.0" textFill="#ff0404" />
+            <Label fx:id="labelOne" alignment="TOP_CENTER" layoutX="98.0" layoutY="476.0" prefHeight="17.0" prefWidth="371.0" textFill="#ff0404" />
          </children>
       </Pane>
     </children>
