@@ -14,8 +14,9 @@ import javafx.stage.Stage;
 
 public class FXMLwykladowcaController implements Initializable {
 
-    @FXML
     private Button Logout;
+    @FXML
+    private Button btnLogout;
 
     /**
      * Initializes the controller class.
@@ -23,21 +24,20 @@ public class FXMLwykladowcaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
     @FXML
-    private void handleButtonAction(ActionEvent event) throws IOException {
-          Stage dialogStage = (Stage)Logout.getScene().getWindow();
+    private void logout(ActionEvent event) throws IOException {
+        Stage dialogStage = (Stage) btnLogout.getScene().getWindow();
         dialogStage.close(); // zamknięcie okna po wylogowaniu
-        
-        Stage stage = new Stage(); 
-                Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml")); // powrót do okna głównego
-        
-                Scene scene;
-        scene = new Scene(root);
-        
-                stage.setScene(scene);
-                stage.show();
+
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml")); // powrót do okna głównego
+
+        Scene scene = new Scene(root);
+
+        stage.setScene(scene);
+        stage.show();
     }
-    
+
 }
