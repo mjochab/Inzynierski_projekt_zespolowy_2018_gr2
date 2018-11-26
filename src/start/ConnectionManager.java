@@ -16,13 +16,13 @@ import java.sql.Statement;
  */
 public class ConnectionManager {
 
-
-    private static String url = "jdbc:phpmyadmin://127.0.0.1:5432/wr";    
-    private static String driverName = "com.mysql.jdbc.Driver";   
-    private static String username = "root";   
+    private static String url = "jdbc:phpmyadmin://127.0.0.1:5432/wr";
+    private static String driverName = "com.mysql.jdbc.Driver";
+    private static String username = "root";
     private static String password = "";
     private static Connection myConn;
     private static String urlstring;
+//
 
     public static Connection getConnection() {
         try {
@@ -31,13 +31,12 @@ public class ConnectionManager {
                 myConn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/wr", "root", "");
             } catch (SQLException ex) {
                 // log an exception. fro example:
-                System.out.println("Failed to create the database connection."); 
+                System.out.println("Failed to create the database connection.");
             }
         } catch (ClassNotFoundException ex) {
             // log an exception. for example:
-            System.out.println(ex.getMessage()); 
+            System.out.println(ex.getMessage());
         }
         return myConn;
     }
 }
-
