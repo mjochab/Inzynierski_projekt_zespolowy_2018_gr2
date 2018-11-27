@@ -17,6 +17,8 @@ public class FXMLwykladowcaController implements Initializable {
     private Button Logout;
     @FXML
     private Button btnLogout;
+    @FXML
+    private Button editMark;
 
     /**
      * Initializes the controller class.
@@ -33,6 +35,21 @@ public class FXMLwykladowcaController implements Initializable {
 
         Stage stage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml")); // powrót do okna głównego
+
+        Scene scene = new Scene(root);
+
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void redirectToEditMark(ActionEvent event) throws IOException {
+
+        Stage dialogStage = (Stage) btnLogout.getScene().getWindow();
+        dialogStage.close(); // zamknięcie okna po wylogowaniu
+
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLeditMark.fxml")); // powrót do okna głównego
 
         Scene scene = new Scene(root);
 
