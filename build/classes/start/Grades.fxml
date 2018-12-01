@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="400.0" prefWidth="646.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="start.GradesController">
+   <children>
+      <ImageView blendMode="MULTIPLY" fitHeight="410.0" fitWidth="659.0" layoutX="-5.0" layoutY="-7.0" pickOnBounds="true">
+         <image>
+            <Image url="@tlo.jpg" />
+         </image>
+      </ImageView>
+      <Label contentDisplay="CENTER" layoutX="306.0" layoutY="14.0" prefHeight="17.0" prefWidth="37.0" text="Oceny" textAlignment="CENTER" />
+      <TableView fx:id="table" layoutX="31.0" layoutY="50.0" prefHeight="271.0" prefWidth="595.0">
+        <columns>
+          <TableColumn fx:id="col_ocena" prefWidth="96.0" text="Ocena" />
+            <TableColumn fx:id="col_id_wykladowcy" prefWidth="231.0" text="Wykładowca" />
+          <TableColumn fx:id="col_id_przedmiotu" minWidth="0.0" prefWidth="267.0" text="Przedmiot" />
+        </columns>
+        
+      </TableView>
+      <Button fx:id="btnload" layoutX="52.0" layoutY="338.0" mnemonicParsing="false" text="Button" />
+   </children>
+</AnchorPane>
