@@ -2,7 +2,13 @@ package start;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +16,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 
@@ -23,12 +32,43 @@ public class FXMLeditStudentController implements Initializable {
     private Button Logout;
     @FXML
     private Button prevBtn;
+            @FXML
+    private TableView<ModelEditStudent> tables;
+          @FXML
+    private TableColumn<ModelEditStudent, String> col_nr_indeksu;
+                      @FXML
+    private TableColumn<ModelEditStudent, String> col_imie;
+            @FXML
+    private TableColumn<ModelEditStudent, String> col_nazwisko;
     
 
+ public static ObservableList<ModelEditStudent> oblists=FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-    }    
+        try {
+            PreparedStatement st;
+            Connection myConn=ConnectionManager.getConnection();
+             st = myConn.prepareStatement("SELECT * FROM student");
+            
+            ResultSet rs= st.executeQuery();
+            
+            
+            
+            while (rs.next())   {
+                oblists.add(new ModelEditStudent(rs.getString("nr_indeksu"), rs.getString("imie"),
+                        rs.getString("nazwisko")));
+                
+            }
+             } catch (SQLException ex) {
+            System.out.println(ex.getMessage());}
+                col_nr_indeksu.setCellValueFactory(new PropertyValueFactory<ModelEditStudent, String>("nr_indeksu"));
+                col_imie.setCellValueFactory(new PropertyValueFactory<ModelEditStudent, String>("imie"));
+                col_nazwisko.setCellValueFactory(new PropertyValueFactory<ModelEditStudent, String>("nazwisko"));
+                
+                tables.setItems(null);
+                tables.setItems(oblists);
+                
+            }  
     @FXML
      private void handleButtonAction(ActionEvent event) throws IOException {
         Stage dialogStage = (Stage)Logout.getScene().getWindow();
