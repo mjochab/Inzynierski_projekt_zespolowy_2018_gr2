@@ -16,7 +16,7 @@ import java.sql.Statement;
  */
 public class ConnectionManager {
 
-    private static String url = "jdbc:phpmyadmin://127.0.0.1:5432/wr";
+    private static String url = "jdbc:phpmyadmin://127.0.0.1:5432/wu";
     private static String driverName = "com.mysql.jdbc.Driver";
     private static String username = "root";
     private static String password = "";
@@ -28,7 +28,7 @@ public class ConnectionManager {
         try {
             Class.forName(driverName);
             try {
-                myConn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/wr", "root", "");
+                myConn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/wu", "root", "");
             } catch (SQLException ex) {
                 // log an exception. fro example:
                 System.out.println("Failed to create the database connection.");
