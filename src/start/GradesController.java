@@ -33,63 +33,57 @@ public class GradesController extends FXMLDocumentController implements Initiali
 
     @FXML
     private AnchorPane mainPane;
-      @FXML
+    @FXML
     private Button btnBackward;
-        @FXML
+    @FXML
     private TableView<ModelGrades> table;
-          @FXML
+    @FXML
     private TableColumn<ModelGrades, String> col_ocena;
-                      @FXML
+    @FXML
     private TableColumn<ModelGrades, String> col_id_wykladowcy;
-            @FXML
+    @FXML
     private TableColumn<ModelGrades, String> col_id_przedmiotu;
-            
-    
-public static ObservableList<ModelGrades> oblist=FXCollections.observableArrayList();
+
+    public static ObservableList<ModelGrades> oblist = FXCollections.observableArrayList();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
             PreparedStatement st;
-            Connection myConn=ConnectionManager.getConnection();
-             st = myConn.prepareStatement("SELECT * FROM oceny");
-            
-            ResultSet rs= st.executeQuery();
-            
-            
-            
-            while (rs.next())   {
+            Connection myConn = ConnectionManager.getConnection();
+            st = myConn.prepareStatement("SELECT * FROM oceny");
+
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
                 oblist.add(new ModelGrades(rs.getString("ocena"), rs.getString("id_wykladowcy"),
                         rs.getString("nazwa")));
-                
+
             }
-             } catch (SQLException ex) {
-            System.out.println(ex.getMessage());}
-                col_ocena.setCellValueFactory(new PropertyValueFactory<ModelGrades, String>("ocena"));
-                col_id_wykladowcy.setCellValueFactory(new PropertyValueFactory<ModelGrades, String>("Wykladowca"));
-                col_id_przedmiotu.setCellValueFactory(new PropertyValueFactory<ModelGrades, String>("Przedmiot"));
-                
-                table.setItems(null);
-                table.setItems(oblist);
-                
-            }
-
-            
-            private void backToStudent(ActionEvent event) throws IOException {
-            Stage dialogStage = (Stage) btnBackward.getScene().getWindow();
-            dialogStage.close();
-            
-            Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("FXMLstudent.fxml"));
-            
-            Scene scene = new Scene(root);
-            
-            stage.setScene(scene);
-            stage.show();
-        }  
-
-   
-
-
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
+        col_ocena.setCellValueFactory(new PropertyValueFactory<ModelGrades, String>("ocena"));
+        col_id_wykladowcy.setCellValueFactory(new PropertyValueFactory<ModelGrades, String>("Wykladowca"));
+        col_id_przedmiotu.setCellValueFactory(new PropertyValueFactory<ModelGrades, String>("Przedmiot"));
 
+        table.setItems(null);
+        table.setItems(oblist);
 
+    }
+
+    @FXML
+    private void backToStudent(ActionEvent event) throws IOException {
+        Stage dialogStage = (Stage) btnBackward.getScene().getWindow();
+        dialogStage.close();
+
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLstudent.fxml"));
+
+        Scene scene = new Scene(root);
+
+        stage.setScene(scene);
+        stage.show();
+    }
+
+}
