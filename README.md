@@ -1,5 +1,5 @@
 # Wstępna dokumentacja aplikacji 
-„Wirtualna Uczelnia” 
+„Wirtualna Uczelnia :)” 
 
 Opis ogólny: <br/>
 Aplikacja ma charakter użytkowy. Służy konkretnym użytkownikom, tj. studentom, pracownikom dziekanatu oraz wykładowcom. Zapewnia użytkownikom kontrolę nad funkcjami w Wirtualnej Uczelni, do których mają dostęp.  
