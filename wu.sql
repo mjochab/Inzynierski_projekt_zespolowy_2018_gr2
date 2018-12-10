@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 30 Lis 2018, 16:54
+-- Czas generowania: 10 Gru 2018, 22:59
 -- Wersja serwera: 10.1.28-MariaDB
 -- Wersja PHP: 7.1.11
 
@@ -56,22 +56,21 @@ INSERT INTO `dziekanat` (`id_pracownika`, `imie`, `nazwisko`, `haslo`, `pesel`) 
 CREATE TABLE `oceny` (
   `id_oceny` int(11) NOT NULL,
   `ocena` int(1) NOT NULL,
+  `id_wykladowcy` int(11) NOT NULL,
   `nr_indeksu` int(11) NOT NULL,
-  `nazwa` varchar(25) COLLATE utf8_polish_ci NOT NULL,
-  `imie_w` varchar(25) COLLATE utf8_polish_ci NOT NULL,
-  `nazwisko_w` varchar(25) COLLATE utf8_polish_ci NOT NULL
+  `nazwa` varchar(25) COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
 -- Zrzut danych tabeli `oceny`
 --
 
-INSERT INTO `oceny` (`id_oceny`, `ocena`, `nr_indeksu`, `nazwa`, `imie_w`, `nazwisko_w`) VALUES
-(1, 5, 966746, 'Ekonometria', 'Antoni', 'Bugaj'),
-(2, 4, 964567, 'Informatyka', 'Mariusz', 'Jasny'),
-(3, 3, 964567, 'Sieci', 'Jan', 'Ciskoj'),
-(4, 4, 966746, 'Matematyka', 'Tomasz', 'Raczek'),
-(5, 3, 964567, 'Ekonomia', 'Mariusz', 'Jasny');
+INSERT INTO `oceny` (`id_oceny`, `ocena`, `id_wykladowcy`, `nr_indeksu`, `nazwa`) VALUES
+(1, 2, 3, 964611, 'Matematyka'),
+(2, 5, 4, 964634, 'Sieci'),
+(3, 4, 4, 964567, 'Informatyka'),
+(4, 2, 1, 964567, 'Matematyka'),
+(5, 2, 3, 964611, 'Ekonomia');
 
 -- --------------------------------------------------------
 
@@ -139,19 +138,20 @@ CREATE TABLE `wniosek` (
   `id_wniosku` int(11) NOT NULL,
   `data` date NOT NULL,
   `nr_indeksu` int(11) NOT NULL,
-  `id_pracownika` int(11) NOT NULL
+  `id_pracownika` int(11) NOT NULL,
+  `średnia` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
 -- Zrzut danych tabeli `wniosek`
 --
 
-INSERT INTO `wniosek` (`id_wniosku`, `data`, `nr_indeksu`, `id_pracownika`) VALUES
-(1, '2018-11-08', 966746, 1),
-(2, '2018-11-15', 964634, 3),
-(3, '2018-11-18', 966746, 1),
-(4, '2018-11-02', 964567, 2),
-(5, '2018-11-24', 964567, 5);
+INSERT INTO `wniosek` (`id_wniosku`, `data`, `nr_indeksu`, `id_pracownika`, `średnia`) VALUES
+(1, '2018-11-08', 966746, 1, 4.53),
+(2, '2018-11-15', 964634, 3, 4.4),
+(3, '2018-11-18', 966746, 1, 4.45),
+(4, '2018-11-02', 964567, 2, 4.67),
+(5, '2018-11-24', 964567, 5, 5.23);
 
 -- --------------------------------------------------------
 
@@ -195,8 +195,7 @@ ALTER TABLE `oceny`
   ADD PRIMARY KEY (`id_oceny`),
   ADD KEY `nr_indeksu` (`nr_indeksu`) USING BTREE,
   ADD KEY `nazwa` (`nazwa`),
-  ADD KEY `imie_w` (`imie_w`),
-  ADD KEY `nazwisko_w` (`nazwisko_w`);
+  ADD KEY `id_wykladowcy` (`id_wykladowcy`);
 
 --
 -- Indexes for table `przedmioty`
@@ -226,9 +225,7 @@ ALTER TABLE `wniosek`
 -- Indexes for table `wykladowca`
 --
 ALTER TABLE `wykladowca`
-  ADD PRIMARY KEY (`id_wykladowcy`),
-  ADD KEY `nazwisko` (`nazwisko`),
-  ADD KEY `imie` (`imie`);
+  ADD PRIMARY KEY (`id_wykladowcy`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -272,10 +269,9 @@ ALTER TABLE `wykladowca`
 -- Ograniczenia dla tabeli `oceny`
 --
 ALTER TABLE `oceny`
+  ADD CONSTRAINT `oceny_ibfk_1` FOREIGN KEY (`id_wykladowcy`) REFERENCES `wykladowca` (`id_wykladowcy`),
   ADD CONSTRAINT `oceny_ibfk_3` FOREIGN KEY (`nr_indeksu`) REFERENCES `student` (`nr_indeksu`),
-  ADD CONSTRAINT `oceny_ibfk_4` FOREIGN KEY (`nazwa`) REFERENCES `przedmioty` (`nazwa`),
-  ADD CONSTRAINT `oceny_ibfk_5` FOREIGN KEY (`imie_w`) REFERENCES `wykladowca` (`imie`),
-  ADD CONSTRAINT `oceny_ibfk_6` FOREIGN KEY (`nazwisko_w`) REFERENCES `wykladowca` (`nazwisko`);
+  ADD CONSTRAINT `oceny_ibfk_4` FOREIGN KEY (`nazwa`) REFERENCES `przedmioty` (`nazwa`);
 
 --
 -- Ograniczenia dla tabeli `przedmioty`
