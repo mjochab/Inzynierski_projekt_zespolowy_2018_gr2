@@ -17,7 +17,7 @@
       </ImageView>
       <Label contentDisplay="CENTER" layoutX="279.0" layoutY="14.0" prefHeight="17.0" prefWidth="102.0" text="Wybór przedmiotu" textAlignment="CENTER" />
       <Button fx:id="btnBackward" layoutX="280.0" layoutY="333.0" mnemonicParsing="false" onAction="#backToStudent" prefHeight="25.0" prefWidth="88.0" text="Wróć" textAlignment="CENTER" />
-      <ComboBox layoutX="153.0" layoutY="165.0" prefHeight="25.0" prefWidth="253.0" promptText="Nazwa przedmiotu" />
+      <ComboBox fx:id="ComboBox" layoutX="153.0" layoutY="165.0" onAction="#chooseSubject" prefHeight="25.0" prefWidth="253.0" promptText="Nazwa przedmiotu" />
       <Button fx:id="btnSubmit" layoutX="419.0" layoutY="165.0" mnemonicParsing="false" onAction="#submitGrade" text="Wybierz" />
    </children>
 </AnchorPane>
