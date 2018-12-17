@@ -18,10 +18,10 @@
       </ImageView>
       <Label layoutX="278.0" layoutY="23.0" text="Edycja studentów" />
       <Label layoutX="57.0" layoutY="56.0" text="Wyszukaj studenta" />
-      <TextField layoutX="57.0" layoutY="79.0" promptText="Wprowadź szukane dane" />
+      <TextField fx:id="searchField" layoutX="57.0" layoutY="79.0" onAction="#searchStudentOnType" promptText="Wprowadź szukane dane" />
       <Button layoutX="138.0" layoutY="113.0" mnemonicParsing="false" text="Zatwierdź" />
       <Label layoutX="360.0" layoutY="56.0" text="Lista studentów" />
-      <Button fx:id="removeStudent" layoutX="14.0" layoutY="269.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="121.0" text="Usuń &#10;zaznaczonego&#10; studenta" textAlignment="CENTER" />
+      <Button fx:id="removeStudent" layoutX="14.0" layoutY="269.0" mnemonicParsing="false" onAction="#removeStudent" prefHeight="60.0" prefWidth="121.0" text="Usuń &#10;zaznaczonego&#10; studenta" textAlignment="CENTER" />
       <Button fx:id="addNewStudent" layoutX="145.0" layoutY="269.0" mnemonicParsing="false" onAction="#redirectToAddNewStudent" prefHeight="60.0" prefWidth="121.0" text="Dodaj nowego&#10; studenta&#10;" textAlignment="CENTER" />
       <Button fx:id="prevBtn" layoutX="31.0" layoutY="361.0" mnemonicParsing="false" onAction="#prevWindow" text="Powrót" />
       <Button fx:id="Logout" layoutX="564.0" layoutY="19.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Wyloguj" />
