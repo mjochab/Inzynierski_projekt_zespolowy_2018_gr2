@@ -1,5 +1,13 @@
 package start;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -84,6 +92,58 @@ public class GradesController extends FXMLDocumentController implements Initiali
 
         stage.setScene(scene);
         stage.show();
+    }
+    
+    @FXML
+    private void printToPdf(ActionEvent event) throws IOException {
+        try {
+            String file_name="C:\\Oceny.pdf";
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream(file_name));
+            document.open();
+            
+            Connection myConn=ConnectionManager.getConnection();
+            PreparedStatement ps=null;
+            ResultSet rset=null;
+            
+            String query="select * from oceny";
+            ps=myConn.prepareStatement(query);
+            rset=ps.executeQuery();
+            
+            Paragraph para = new Paragraph(" ");
+            
+            Paragraph title = new Paragraph("TABELA OCEN STUDENTA");
+            title.setAlignment(Element.ALIGN_CENTER);
+            document.add(title);
+            document.add(para);
+            document.add(para);
+            
+            //table1
+            PdfPTable tbl = new PdfPTable(3);
+            tbl.addCell("Ocena");
+            tbl.addCell("Wykladowca");
+            tbl.addCell("Przedmiot");
+            document.add(tbl);
+            
+            document.add(para);
+
+            
+            //table2
+            PdfPTable tbl2 = new PdfPTable(3);
+            while(rset.next()) {
+                Paragraph p1 = new Paragraph(rset.getString("ocena"));
+                Paragraph p2 = new Paragraph(rset.getString("nazwisko_w"));
+                Paragraph p3 = new Paragraph(rset.getString("nazwa"));
+                tbl2.addCell(p1);
+                tbl2.addCell(p2);
+                tbl2.addCell(p3);
+            }
+            document.add(tbl2);
+            document.close();
+        }
+        catch(Exception e) {
+            System.err.println(e);
+        }
     }
 
 }
