@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 10 Gru 2018, 23:12
+-- Czas generowania: 17 Gru 2018, 16:40
 -- Wersja serwera: 10.1.28-MariaDB
 -- Wersja PHP: 7.1.11
 
@@ -59,19 +59,18 @@ CREATE TABLE `oceny` (
   `nr_indeksu` int(11) NOT NULL,
   `nazwa` varchar(25) COLLATE utf8_polish_ci NOT NULL,
   `imie_w` varchar(25) COLLATE utf8_polish_ci NOT NULL,
-  `nazwisko_w` varchar(25) COLLATE utf8_polish_ci NOT NULL
+  `nazwisko_w` varchar(25) COLLATE utf8_polish_ci NOT NULL,
+  `id_wykladowcy` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
 -- Zrzut danych tabeli `oceny`
 --
 
-INSERT INTO `oceny` (`id_oceny`, `ocena`, `nr_indeksu`, `nazwa`, `imie_w`, `nazwisko_w`) VALUES
-(1, 5, 966746, 'Ekonometria', 'Antoni', 'Bugaj'),
-(2, 4, 964567, 'Informatyka', 'Mariusz', 'Jasny'),
-(3, 3, 964567, 'Sieci', 'Jan', 'Ciskoj'),
-(4, 4, 966746, 'Matematyka', 'Tomasz', 'Raczek'),
-(5, 3, 964567, 'Ekonomia', 'Mariusz', 'Jasny');
+INSERT INTO `oceny` (`id_oceny`, `ocena`, `nr_indeksu`, `nazwa`, `imie_w`, `nazwisko_w`, `id_wykladowcy`) VALUES
+(1, 5, 964646, 'Ekonomia', 'Jacek', 'Dynia', 3),
+(2, 3, 964567, 'Sieci', 'Antoni', 'Bugaj', 1),
+(3, 2, 964611, 'Matematyka', 'Tomasz', 'Raczek', 5);
 
 -- --------------------------------------------------------
 
@@ -197,7 +196,8 @@ ALTER TABLE `oceny`
   ADD KEY `nr_indeksu` (`nr_indeksu`) USING BTREE,
   ADD KEY `nazwa` (`nazwa`),
   ADD KEY `imie_w` (`imie_w`),
-  ADD KEY `nazwisko_w` (`nazwisko_w`);
+  ADD KEY `nazwisko_w` (`nazwisko_w`),
+  ADD KEY `id_wykladowcy` (`id_wykladowcy`);
 
 --
 -- Indexes for table `przedmioty`
@@ -276,7 +276,8 @@ ALTER TABLE `oceny`
   ADD CONSTRAINT `oceny_ibfk_3` FOREIGN KEY (`nr_indeksu`) REFERENCES `student` (`nr_indeksu`),
   ADD CONSTRAINT `oceny_ibfk_4` FOREIGN KEY (`nazwa`) REFERENCES `przedmioty` (`nazwa`),
   ADD CONSTRAINT `oceny_ibfk_5` FOREIGN KEY (`imie_w`) REFERENCES `wykladowca` (`imie`),
-  ADD CONSTRAINT `oceny_ibfk_6` FOREIGN KEY (`nazwisko_w`) REFERENCES `wykladowca` (`nazwisko`);
+  ADD CONSTRAINT `oceny_ibfk_6` FOREIGN KEY (`nazwisko_w`) REFERENCES `wykladowca` (`nazwisko`),
+  ADD CONSTRAINT `oceny_ibfk_7` FOREIGN KEY (`id_wykladowcy`) REFERENCES `wykladowca` (`id_wykladowcy`);
 
 --
 -- Ograniczenia dla tabeli `przedmioty`
