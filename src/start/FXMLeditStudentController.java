@@ -18,7 +18,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -33,16 +32,14 @@ public class FXMLeditStudentController implements Initializable {
     private Button Logout;
     @FXML
     private Button prevBtn;
-    @FXML
+            @FXML
     private TableView<ModelEditStudent> tables;
-    @FXML
+          @FXML
     private TableColumn<ModelEditStudent, String> col_nr_indeksu;
-    @FXML
+                      @FXML
     private TableColumn<ModelEditStudent, String> col_imie;
-    @FXML
+            @FXML
     private TableColumn<ModelEditStudent, String> col_nazwisko;
-    @FXML
-    private TextField searchField; 
     
 
  public static ObservableList<ModelEditStudent> oblists=FXCollections.observableArrayList();
@@ -118,29 +115,4 @@ public class FXMLeditStudentController implements Initializable {
                 stage.show();
     }
     
-    @FXML
-    private void removeStudent(ActionEvent event)throws IOException, SQLException{
-        tables.getItems().removeAll(tables.getSelectionModel().getSelectedItem());
-        
-       try{
-           PreparedStatement st;
-           Connection myConn=ConnectionManager.getConnection();
-           String query = "DELETE FROM student WHERE nr_indeksu="+col_nr_indeksu+"";
-           st = myConn.prepareStatement(query);
-           st.setString(1, col_nr_indeksu.getText());
-           st.executeUpdate();
-          
-           
-    }
-       catch(SQLException e1){
-            System.err.println(e1);
-             
-        }
-    
-}
-    
-    @FXML
-    private void searchStudent(ActionEvent event){
-        //TODO
-    }
 }
