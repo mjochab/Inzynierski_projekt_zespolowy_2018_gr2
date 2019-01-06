@@ -16,6 +16,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -100,6 +102,8 @@ public class FXMLaddStudentController implements Initializable {
         String sql = "INSERT INTO student (haslo, imie, nazwisko, pesel, kierunek_s, ulica, "
                 + "nr_domu, kod_p, miejscowosc, nr_tel, nr_indeksu) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         
+        if(validateFields()){
+        
         try{
             
             try (Connection myConn = ConnectionManager.getConnection()) {
@@ -117,15 +121,31 @@ public class FXMLaddStudentController implements Initializable {
                 st.setString(10, this.phoneNumber.getText());
                 st.setString(11, this.indexNumber.getText());
                 
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Dodanie studenta");
+                alert.setHeaderText(null);
+                alert.setContentText("Udało się poprawnie dodać studenta");
+                alert.showAndWait();
+                
                 st.execute();
             }
              
             } catch (SQLException e){
                 e.printStackTrace();
             }
+        this.password.setText(" ");
+        this.name.setText(" ");
+        this.lastName.setText(" ");
+        this.pesel.setText(" ");
+        this.degreeCourse.setText(" ");
+        this.street.setText(" ");
+        this.houseNumber.setText(" ");
+        this.postCode.setText(" ");
+        this.city.setText(" ");
+        this.phoneNumber.setText(" ");
+        this.indexNumber.setText(" ");
         
-        
-        
+        } 
     }
     
     @FXML
@@ -141,6 +161,25 @@ public class FXMLaddStudentController implements Initializable {
         this.city.setText(" ");
         this.phoneNumber.setText(" ");
         this.indexNumber.setText(" ");
+    }
+    
+    private boolean validateFields(){
+        if(password.getText().isEmpty() | name.getText().isEmpty() |
+                lastName.getText().isEmpty() | pesel.getText().isEmpty() |
+                degreeCourse.getText().isEmpty() | street.getText().isEmpty() |
+                houseNumber.getText().isEmpty() | postCode.getText().isEmpty() |
+                city.getText().isEmpty() | phoneNumber.getText().isEmpty() |
+                indexNumber.getText().isEmpty()){
+            
+            Alert alert = new Alert(AlertType.WARNING);
+                alert.setTitle("Uwaga");
+                alert.setHeaderText(null);
+                alert.setContentText("Proszę wypełnić wszystkie pola");
+                alert.showAndWait();
+                
+                return false;
+        }
+        return true;
     }
         
     }
