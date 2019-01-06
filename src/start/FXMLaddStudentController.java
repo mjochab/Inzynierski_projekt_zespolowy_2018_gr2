@@ -1,5 +1,6 @@
 package start;
 
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -7,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +17,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 
@@ -26,6 +32,8 @@ public class FXMLaddStudentController implements Initializable {
     private Button prevBtn;
     @FXML
     private Button confirm;
+    @FXML
+    private Button clearbtn;
     @FXML
     private TextField pesel;
     @FXML
@@ -48,6 +56,7 @@ public class FXMLaddStudentController implements Initializable {
     private TextField city;
     @FXML
     private TextField phoneNumber;
+    
     
     @Override
     
@@ -87,34 +96,52 @@ public class FXMLaddStudentController implements Initializable {
     
     @FXML
     private void addStudentOnClick(ActionEvent event)throws IOException, SQLException {
-
+        
+        String sql = "INSERT INTO student (haslo, imie, nazwisko, pesel, kierunek_s, ulica, "
+                + "nr_domu, kod_p, miejscowosc, nr_tel, nr_indeksu) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        
         try{
-            PreparedStatement st;
-            Connection myConn=ConnectionManager.getConnection();
-            st = myConn.prepareStatement("INSERT INTO student ( nr_indeksu, imie, nazwisko, haslo, pesel, kierunek_s, ulica, nr_domu, kod_p, miejscowosc, nr_tel VALUES(?,?,?,?,?,?,?,?,?,?,?");
-          
-                st.setString(1, indexNumber.getText());
-                st.setString(2, name.getText());
-                st.setString(3, lastName.getText());
-                st.setString(4, password.getText());
-                st.setString(5, pesel.getText());
-                st.setString(6, degreeCourse.getText());
-                st.setString(7, street.getText());
-                st.setString(8, houseNumber.getText());
-                st.setString(9, postCode.getText());
-                st.setString(10, city.getText());
-                st.setString(11, phoneNumber.getText());
-                st.execute();
-                st.close();
-        }
-        catch(Exception e1){
-            System.err.println(e1);
-             
-        }
             
-                   
-                    
-        }
+            try (Connection myConn = ConnectionManager.getConnection()) {
+                PreparedStatement st = myConn.prepareStatement(sql);
+                
+                st.setString(1, this.password.getText());
+                st.setString(2, this.name.getText());
+                st.setString(3, this.lastName.getText());
+                st.setString(4, this.pesel.getText());
+                st.setString(5, this.degreeCourse.getText());
+                st.setString(6, this.street.getText());
+                st.setString(7, this.houseNumber.getText());
+                st.setString(8, this.postCode.getText());
+                st.setString(9, this.city.getText());
+                st.setString(10, this.phoneNumber.getText());
+                st.setString(11, this.indexNumber.getText());
+                
+                st.execute();
+            }
+             
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        
+        
+        
+    }
+    
+    @FXML
+    private void clearFields(ActionEvent event){
+        this.password.setText(" ");
+        this.name.setText(" ");
+        this.lastName.setText(" ");
+        this.pesel.setText(" ");
+        this.degreeCourse.setText(" ");
+        this.street.setText(" ");
+        this.houseNumber.setText(" ");
+        this.postCode.setText(" ");
+        this.city.setText(" ");
+        this.phoneNumber.setText(" ");
+        this.indexNumber.setText(" ");
+    }
         
     }
             
