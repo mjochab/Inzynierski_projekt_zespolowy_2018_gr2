@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,7 +16,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -32,13 +35,13 @@ public class FXMLeditStudentController implements Initializable {
     private Button Logout;
     @FXML
     private Button prevBtn;
-            @FXML
+    @FXML
     private TableView<ModelEditStudent> tables;
-          @FXML
+    @FXML
     private TableColumn<ModelEditStudent, String> col_nr_indeksu;
-                      @FXML
+    @FXML
     private TableColumn<ModelEditStudent, String> col_imie;
-            @FXML
+    @FXML
     private TableColumn<ModelEditStudent, String> col_nazwisko;
     
 
@@ -114,5 +117,60 @@ public class FXMLeditStudentController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
     }
+    
+    @FXML
+    private void removeStudentOnClick(ActionEvent event) throws IOException, SQLException{
+            ModelEditStudent student=(ModelEditStudent)tables.getSelectionModel().getSelectedItem();
+           
+            String sql1="DELETE FROM wniosek WHERE nr_indeksu = ? ";
+            String sql2="DELETE FROM oceny WHERE nr_indeksu = ? ";
+            String sql3="DELETE FROM przedmioty WHERE nr_indeksu = ? ";
+            String sql4="DELETE FROM student WHERE nr_indeksu = ? ";
+            
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Usuwanie studenta");
+            alert.setHeaderText(null);
+            alert.setContentText("Czy na pewno chcesz usunąc tego studenta z listy?");
+            Optional <ButtonType> action = alert.showAndWait();
+            
+            if(action.get() == ButtonType.OK){
+                
+            tables.getItems().removeAll(tables.getSelectionModel().getSelectedItem());  
+            
+            try{
+            
+                try (Connection myConn = ConnectionManager.getConnection()) {
+                 try (PreparedStatement st = myConn.prepareStatement(sql1)) {
+                    st.setString(1, student.getNr_indeksu());
+                    st.executeUpdate();
+                }
+                 try (PreparedStatement st = myConn.prepareStatement(sql2)) {
+                    st.setString(1, student.getNr_indeksu());
+                    st.executeUpdate();
+                }
+                 try (PreparedStatement st = myConn.prepareStatement(sql3)) {
+                    st.setString(1, student.getNr_indeksu());
+                    st.executeUpdate();
+                }
+                 try (PreparedStatement st = myConn.prepareStatement(sql4)) {
+                    st.setString(1, student.getNr_indeksu());
+                    st.executeUpdate();
+                }
+                myConn.close();
+                
+            }
+             
+            }catch (SQLException e){
+                System.out.println(e);
+            }
+            }
+        
+        
+        
+        
+        
+    }
+    
+    
     
 }
