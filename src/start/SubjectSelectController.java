@@ -17,10 +17,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 
 public class SubjectSelectController implements Initializable {
 
@@ -31,30 +29,40 @@ public class SubjectSelectController implements Initializable {
     @FXML
     private Button btnSubmit;
     @FXML
-    private ComboBox<ModelSubject> ComboBox;
+    private ComboBox ComboBox;
 
-     private ObservableList<ModelSubject> oblist = FXCollections.observableArrayList();
-     
+    private ObservableList<String> subjectList = FXCollections.observableArrayList();
+
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-      try {
-            PreparedStatement st;
-            Connection myConn = ConnectionManager.getConnection();
-            st = myConn.prepareStatement("SELECT * FROM przedmioty where nazwa = ?");
+    public void initialize(URL url, ResourceBundle rb) {     
+    chooseSubject();
+    }
 
-            ResultSet rs = st.executeQuery();
+    @FXML
+    private void chooseSubject() {
+         String sqlSubjectName = "select nazwa from przedmioty";
+        
+        Connection myConn = null;
+        try {
+            myConn = ConnectionManager.getConnection();
+            PreparedStatement ps = myConn.prepareStatement(sqlSubjectName);
+            ResultSet rs = ps.executeQuery(sqlSubjectName);
 
             while (rs.next()) {
-                oblist.add(new ModelSubject(rs.getString("nazwa")));
-
+                if(!subjectList.contains(rs.getString("nazwa")))
+                subjectList.add(rs.getString("nazwa"));
             }
+
+            rs.close();
+            ps.close();
+            myConn.close();
+      
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            System.err.println("SQL ERR" + ex);
         }
         
+        ComboBox.setItems(subjectList);
         
-
-        ComboBox.setItems(oblist);
     }
 
     @FXML
@@ -72,12 +80,7 @@ public class SubjectSelectController implements Initializable {
     }
 
     @FXML
-    private void submitGrade(ActionEvent event) {
-    }
-
-    @FXML
-    private void chooseSubject(ActionEvent event) {
-        ComboBox.setItems(oblist);
+    private void submitSubject(ActionEvent event) {
     }
 
 }
