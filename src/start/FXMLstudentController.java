@@ -3,6 +3,10 @@ package start;
 import javafx.scene.Scene;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class FXMLstudentController implements Initializable {
@@ -22,6 +27,8 @@ public class FXMLstudentController implements Initializable {
     private Button btnSubject;
     @FXML
     private Button btnScholarship;
+        @FXML
+    protected Label user1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -71,17 +78,33 @@ public class FXMLstudentController implements Initializable {
     }
     
        @FXML
-    private void redirectToScholarship(ActionEvent event) throws IOException {
-        Stage dialogStage = (Stage) btnScholarship.getScene().getWindow();
+    private void redirectToScholarship(ActionEvent event) throws IOException, SQLException {
+                                 PreparedStatement st;
+            Connection myConn = ConnectionManager.getConnection();
+            st = myConn.prepareStatement("SELECT * FROM wniosek where nr_indeksu= ?");
+             st.setString(1, user1.getText());
+              ResultSet rs = st.executeQuery();
+       Stage dialogStage = (Stage) btnScholarship.getScene().getWindow();
         dialogStage.close();
 
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("Scholarship.fxml"));
-
-        Scene scene = new Scene(root);
-
-        stage.setScene(scene);
-        stage.show();
+            
+                  FXMLLoader loader=new FXMLLoader();
+                
+               loader.setLocation(getClass().getResource("Scholarship.fxml"));
+             loader.load();
+               // Pane root= loader.load(getClass().getResource("/start/FXMLstudent.fxml").openStream());
+              
+               ScholarshipController display= loader.getController();
+                display.setIndeks(user1.getText());
+                
+                Parent root=loader.getRoot();
+                Scene scene = new Scene(root);
+                 Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+    }
+       void setText(String text) {
+        this.user1.setText(text);
     }
 
 }

@@ -69,15 +69,23 @@ public class FXMLDocumentController implements Initializable {
 
             if (rs.next()) {
 
+               
                 Stage stage = new Stage();
-                Parent root = FXMLLoader.load(getClass().getResource("FXMLstudent.fxml"));
-
+                  FXMLLoader loader=new FXMLLoader();
+                
+               loader.setLocation(getClass().getResource("FXMLstudent.fxml"));
+             loader.load();
+               // Pane root= loader.load(getClass().getResource("/start/FXMLstudent.fxml").openStream());
+              
+               FXMLstudentController display= loader.getController();
+                display.setText(UserField.getText());
+                Parent root=loader.getRoot();
                 Scene scene = new Scene(root);
-
+              
                 stage.setScene(scene);
                 stage.show();
                 Stage dialogStage = (Stage) buttonLog.getScene().getWindow();
-                dialogStage.close(); // zamknięcie okna po wylogowaniu
+               dialogStage.close(); // zamknięcie okna po wylogowaniu
 
             } else {
 

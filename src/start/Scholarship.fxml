@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.scene.web.*?>
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="362.0" prefWidth="578.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="start.ScholarshipController">
+<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="362.0" prefWidth="578.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="start.ScholarshipController">
     <children>
         <ImageView blendMode="MULTIPLY" fitHeight="410.0" fitWidth="659.0" pickOnBounds="true">
             <image>
@@ -18,8 +20,6 @@
         </ImageView>
         <Label contentDisplay="CENTER" layoutX="301.0" layoutY="14.0" prefHeight="17.0" prefWidth="58.0" text="Stypendia" textAlignment="CENTER" />
         <Button fx:id="btnBackward" layoutX="286.0" layoutY="335.0" mnemonicParsing="false" onAction="#backToStudent" prefHeight="25.0" prefWidth="88.0" text="Wróć" textAlignment="CENTER" />
-        <Label layoutX="122.0" layoutY="142.0" prefHeight="17.0" prefWidth="88.0" text="Średnia ocen" />
-        <TextField editable="false" layoutX="198.0" layoutY="138.0" prefHeight="25.0" prefWidth="43.0" promptText="4.34" />
         <TextArea editable="false" layoutX="23.0" layoutY="294.0" prefHeight="32.0" prefWidth="499.0" promptText="Po złożeniu wniosku student ma obowiązek dostarczyć komplet dokumentów do dziekanatu maksymalnie w okresie 10 dni roboczych.">
             <font>
                 <Font size="9.0" />
@@ -30,6 +30,14 @@
                 <Font size="10.0" />
             </font>
         </CheckBox>
-        <Button layoutX="275.0" layoutY="138.0" mnemonicParsing="false" text="Złóż wniosek" />
+      <TableView fx:id="tableq" layoutX="230.0" layoutY="130.0" prefHeight="58.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="colnr_indeksu" prefWidth="75.0" text="nr_indeksu" />
+          <TableColumn fx:id="col_srednia" prefWidth="75.0" text="srednia" />
+        </columns>
+      </TableView>
+      <Label fx:id="indeks" layoutX="637.0" layoutY="387.0" prefHeight="0.0" prefWidth="0.0" text="Label" />
+      <Button fx:id="zlozButton" layoutX="287.0" layoutY="205.0" mnemonicParsing="false" onAction="#zlozWniosek" text="Złóż wniosek" />
+    
     </children>
 </AnchorPane>
