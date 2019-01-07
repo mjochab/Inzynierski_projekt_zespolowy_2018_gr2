@@ -6,6 +6,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="start.FXMLaddMarkController">
@@ -17,8 +18,48 @@
       </ImageView>
       <Button fx:id="prevBtn" layoutX="37.0" layoutY="347.0" mnemonicParsing="false" onAction="#prevWindow" prefHeight="25.0" prefWidth="99.0" text="Wróć" />
       <Button fx:id="Logout" layoutX="527.0" layoutY="27.0" mnemonicParsing="false" onAction="#logout" prefHeight="25.0" prefWidth="99.0" text="Wyloguj" />
-      <Button fx:id="addBtn" layoutX="288.0" layoutY="211.0" mnemonicParsing="false" onAction="#addToMark" prefHeight="25.0" prefWidth="99.0" text="Dodaj" />
-      <Label layoutX="253.0" layoutY="127.0" text="Dodaj ocenę:" />
-      <TextField fx:id="newMark" layoutX="350.0" layoutY="123.0" prefHeight="25.0" prefWidth="46.0" text="2.0" />
+      <Button fx:id="addBtn" layoutX="294.0" layoutY="269.0" mnemonicParsing="false" onAction="#addToMark" prefHeight="25.0" prefWidth="99.0" text="Dodaj" />
+      <Label layoutX="303.0" layoutY="183.0" text="Dodaj ocenę:">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <TextField fx:id="newMark" layoutX="303.0" layoutY="211.0" prefHeight="25.0" prefWidth="149.0" />
+      <Label layoutX="79.0" layoutY="126.0" text="Nazwisko wykładowcy">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="79.0" layoutY="56.0" text="Imię wykładowcy">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="79.0" layoutY="183.0" text="Id wykładowcy">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="303.0" layoutY="56.0" text="Nazwa przedmiotu">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="303.0" layoutY="126.0" text="Indeks studenta">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="name" layoutX="79.0" layoutY="85.0" />
+      <TextField fx:id="subject" layoutX="303.0" layoutY="85.0" />
+      <TextField fx:id="surname" layoutX="79.0" layoutY="148.0" />
+      <TextField fx:id="id_w" layoutX="80.0" layoutY="211.0" />
+      <TextField fx:id="index" layoutX="303.0" layoutY="148.0" />
+      <TextField fx:id="id" layoutX="477.0" layoutY="148.0" />
+      <Label layoutX="477.0" layoutY="126.0" text="Id oceny">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
+
