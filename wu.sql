@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 17 Gru 2018, 16:40
--- Wersja serwera: 10.1.28-MariaDB
--- Wersja PHP: 7.1.11
+-- Czas generowania: 07 Sty 2019, 23:09
+-- Wersja serwera: 10.1.31-MariaDB
+-- Wersja PHP: 7.2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -68,9 +68,7 @@ CREATE TABLE `oceny` (
 --
 
 INSERT INTO `oceny` (`id_oceny`, `ocena`, `nr_indeksu`, `nazwa`, `imie_w`, `nazwisko_w`, `id_wykladowcy`) VALUES
-(1, 5, 964646, 'Ekonomia', 'Jacek', 'Dynia', 3),
-(2, 3, 964567, 'Sieci', 'Antoni', 'Bugaj', 1),
-(3, 2, 964611, 'Matematyka', 'Tomasz', 'Raczek', 5);
+(1, 5, 964646, 'Ekonomia', 'Jacek', 'Dynia', 3);
 
 -- --------------------------------------------------------
 
@@ -91,10 +89,7 @@ CREATE TABLE `przedmioty` (
 
 INSERT INTO `przedmioty` (`id_przedmiotu`, `nazwa`, `id_wykladowcy`, `nr_indeksu`) VALUES
 (1, 'Matematyka', 1, 964634),
-(2, 'Informatyka', 3, 964567),
-(3, 'Ekonomia', 4, 964634),
-(4, 'Ekonometria', 5, 964611),
-(5, 'Sieci', 3, 964567);
+(3, 'Ekonomia', 4, 964634);
 
 -- --------------------------------------------------------
 
@@ -136,22 +131,20 @@ INSERT INTO `student` (`id_studenta`, `haslo`, `imie`, `nazwisko`, `pesel`, `kie
 
 CREATE TABLE `wniosek` (
   `id_wniosku` int(11) NOT NULL,
-  `data` date NOT NULL,
+  `data` date DEFAULT NULL,
   `nr_indeksu` int(11) NOT NULL,
-  `id_pracownika` int(11) NOT NULL,
-  `średnia` float NOT NULL
+  `id_pracownika` int(11) DEFAULT NULL,
+  `srednia` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
 -- Zrzut danych tabeli `wniosek`
 --
 
-INSERT INTO `wniosek` (`id_wniosku`, `data`, `nr_indeksu`, `id_pracownika`, `średnia`) VALUES
+INSERT INTO `wniosek` (`id_wniosku`, `data`, `nr_indeksu`, `id_pracownika`, `srednia`) VALUES
 (1, '2018-11-08', 966746, 1, 5.2),
-(2, '2018-11-15', 964634, 3, 4.89),
 (3, '2018-11-18', 966746, 1, 4.81),
-(4, '2018-11-02', 964567, 2, 4.56),
-(5, '2018-11-24', 964567, 5, 5.22);
+(6, NULL, 964646, NULL, 5);
 
 -- --------------------------------------------------------
 
@@ -183,13 +176,13 @@ INSERT INTO `wykladowca` (`id_wykladowcy`, `imie`, `haslo`, `nazwisko`, `pesel`)
 --
 
 --
--- Indexes for table `dziekanat`
+-- Indeksy dla tabeli `dziekanat`
 --
 ALTER TABLE `dziekanat`
   ADD PRIMARY KEY (`id_pracownika`);
 
 --
--- Indexes for table `oceny`
+-- Indeksy dla tabeli `oceny`
 --
 ALTER TABLE `oceny`
   ADD PRIMARY KEY (`id_oceny`),
@@ -200,7 +193,7 @@ ALTER TABLE `oceny`
   ADD KEY `id_wykladowcy` (`id_wykladowcy`);
 
 --
--- Indexes for table `przedmioty`
+-- Indeksy dla tabeli `przedmioty`
 --
 ALTER TABLE `przedmioty`
   ADD PRIMARY KEY (`id_przedmiotu`),
@@ -209,14 +202,14 @@ ALTER TABLE `przedmioty`
   ADD KEY `id_wykladowcy` (`id_wykladowcy`);
 
 --
--- Indexes for table `student`
+-- Indeksy dla tabeli `student`
 --
 ALTER TABLE `student`
   ADD PRIMARY KEY (`id_studenta`),
   ADD KEY `nr_indeksu` (`nr_indeksu`) USING BTREE;
 
 --
--- Indexes for table `wniosek`
+-- Indeksy dla tabeli `wniosek`
 --
 ALTER TABLE `wniosek`
   ADD PRIMARY KEY (`id_wniosku`),
@@ -224,7 +217,7 @@ ALTER TABLE `wniosek`
   ADD KEY `id_pracownika` (`id_pracownika`);
 
 --
--- Indexes for table `wykladowca`
+-- Indeksy dla tabeli `wykladowca`
 --
 ALTER TABLE `wykladowca`
   ADD PRIMARY KEY (`id_wykladowcy`),
@@ -257,7 +250,7 @@ ALTER TABLE `student`
 -- AUTO_INCREMENT dla tabeli `wniosek`
 --
 ALTER TABLE `wniosek`
-  MODIFY `id_wniosku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_wniosku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT dla tabeli `wykladowca`
