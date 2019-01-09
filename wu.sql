@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 07 Sty 2019, 23:09
--- Wersja serwera: 10.1.31-MariaDB
--- Wersja PHP: 7.2.3
+-- Czas generowania: 09 Sty 2019, 21:21
+-- Wersja serwera: 10.1.28-MariaDB
+-- Wersja PHP: 7.1.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -94,6 +94,24 @@ INSERT INTO `przedmioty` (`id_przedmiotu`, `nazwa`, `id_wykladowcy`, `nr_indeksu
 -- --------------------------------------------------------
 
 --
+-- Struktura tabeli dla tabeli `przed_ocen`
+--
+
+CREATE TABLE `przed_ocen` (
+  `ocena` int(1) NOT NULL,
+  `nazwa` varchar(25) COLLATE utf8_polish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `przed_ocen`
+--
+
+INSERT INTO `przed_ocen` (`ocena`, `nazwa`) VALUES
+(5, 'Ekonomia');
+
+-- --------------------------------------------------------
+
+--
 -- Struktura tabeli dla tabeli `student`
 --
 
@@ -176,13 +194,13 @@ INSERT INTO `wykladowca` (`id_wykladowcy`, `imie`, `haslo`, `nazwisko`, `pesel`)
 --
 
 --
--- Indeksy dla tabeli `dziekanat`
+-- Indexes for table `dziekanat`
 --
 ALTER TABLE `dziekanat`
   ADD PRIMARY KEY (`id_pracownika`);
 
 --
--- Indeksy dla tabeli `oceny`
+-- Indexes for table `oceny`
 --
 ALTER TABLE `oceny`
   ADD PRIMARY KEY (`id_oceny`),
@@ -190,10 +208,11 @@ ALTER TABLE `oceny`
   ADD KEY `nazwa` (`nazwa`),
   ADD KEY `imie_w` (`imie_w`),
   ADD KEY `nazwisko_w` (`nazwisko_w`),
-  ADD KEY `id_wykladowcy` (`id_wykladowcy`);
+  ADD KEY `id_wykladowcy` (`id_wykladowcy`),
+  ADD KEY `ocena` (`ocena`);
 
 --
--- Indeksy dla tabeli `przedmioty`
+-- Indexes for table `przedmioty`
 --
 ALTER TABLE `przedmioty`
   ADD PRIMARY KEY (`id_przedmiotu`),
@@ -202,14 +221,21 @@ ALTER TABLE `przedmioty`
   ADD KEY `id_wykladowcy` (`id_wykladowcy`);
 
 --
--- Indeksy dla tabeli `student`
+-- Indexes for table `przed_ocen`
+--
+ALTER TABLE `przed_ocen`
+  ADD PRIMARY KEY (`ocena`),
+  ADD KEY `nazwa` (`nazwa`);
+
+--
+-- Indexes for table `student`
 --
 ALTER TABLE `student`
   ADD PRIMARY KEY (`id_studenta`),
   ADD KEY `nr_indeksu` (`nr_indeksu`) USING BTREE;
 
 --
--- Indeksy dla tabeli `wniosek`
+-- Indexes for table `wniosek`
 --
 ALTER TABLE `wniosek`
   ADD PRIMARY KEY (`id_wniosku`),
@@ -217,7 +243,7 @@ ALTER TABLE `wniosek`
   ADD KEY `id_pracownika` (`id_pracownika`);
 
 --
--- Indeksy dla tabeli `wykladowca`
+-- Indexes for table `wykladowca`
 --
 ALTER TABLE `wykladowca`
   ADD PRIMARY KEY (`id_wykladowcy`),
@@ -278,6 +304,13 @@ ALTER TABLE `oceny`
 ALTER TABLE `przedmioty`
   ADD CONSTRAINT `przedmioty_ibfk_1` FOREIGN KEY (`id_wykladowcy`) REFERENCES `wykladowca` (`id_wykladowcy`),
   ADD CONSTRAINT `przedmioty_ibfk_2` FOREIGN KEY (`nr_indeksu`) REFERENCES `student` (`nr_indeksu`);
+
+--
+-- Ograniczenia dla tabeli `przed_ocen`
+--
+ALTER TABLE `przed_ocen`
+  ADD CONSTRAINT `przed_ocen_ibfk_1` FOREIGN KEY (`nazwa`) REFERENCES `przedmioty` (`nazwa`),
+  ADD CONSTRAINT `przed_ocen_ibfk_2` FOREIGN KEY (`ocena`) REFERENCES `oceny` (`ocena`);
 
 --
 -- Ograniczenia dla tabeli `wniosek`
