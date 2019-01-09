@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 09 Sty 2019, 21:21
+-- Czas generowania: 09 Sty 2019, 21:29
 -- Wersja serwera: 10.1.28-MariaDB
 -- Wersja PHP: 7.1.11
 
@@ -68,7 +68,8 @@ CREATE TABLE `oceny` (
 --
 
 INSERT INTO `oceny` (`id_oceny`, `ocena`, `nr_indeksu`, `nazwa`, `imie_w`, `nazwisko_w`, `id_wykladowcy`) VALUES
-(1, 5, 964646, 'Ekonomia', 'Jacek', 'Dynia', 3);
+(1, 5, 964646, 'Ekonomia', 'Jacek', 'Dynia', 3),
+(2, 4, 964646, 'Matematyka', 'Jan', 'Ciskoj', 2);
 
 -- --------------------------------------------------------
 
@@ -98,16 +99,18 @@ INSERT INTO `przedmioty` (`id_przedmiotu`, `nazwa`, `id_wykladowcy`, `nr_indeksu
 --
 
 CREATE TABLE `przed_ocen` (
-  `ocena` int(1) NOT NULL,
-  `nazwa` varchar(25) COLLATE utf8_polish_ci NOT NULL
+  `nazwa` varchar(25) COLLATE utf8_polish_ci NOT NULL,
+  `ocena` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
 -- Zrzut danych tabeli `przed_ocen`
 --
 
-INSERT INTO `przed_ocen` (`ocena`, `nazwa`) VALUES
-(5, 'Ekonomia');
+INSERT INTO `przed_ocen` (`nazwa`, `ocena`) VALUES
+('Ekonomia', 5),
+('Ekonomia', 5),
+('Matematyka', 4);
 
 -- --------------------------------------------------------
 
@@ -224,8 +227,8 @@ ALTER TABLE `przedmioty`
 -- Indexes for table `przed_ocen`
 --
 ALTER TABLE `przed_ocen`
-  ADD PRIMARY KEY (`ocena`),
-  ADD KEY `nazwa` (`nazwa`);
+  ADD KEY `nazwa` (`nazwa`),
+  ADD KEY `ocena` (`ocena`);
 
 --
 -- Indexes for table `student`
