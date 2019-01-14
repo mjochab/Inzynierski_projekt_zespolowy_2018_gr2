@@ -36,6 +36,8 @@ public class FXMLeditStudentController implements Initializable {
     @FXML
     private Button prevBtn;
     @FXML
+    private Button modifyBtn;
+    @FXML
     private TableView<ModelEditStudent> tables;
     @FXML
     private TableColumn<ModelEditStudent, String> col_nr_indeksu;
@@ -118,14 +120,26 @@ public class FXMLeditStudentController implements Initializable {
                 stage.show();
     }
     
+      @FXML
+    private void redirectToModifyStudent(ActionEvent event)throws IOException{
+        Stage dialogStage = (Stage)modifyBtn.getScene() .getWindow();
+        dialogStage.close();
+        
+        Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("FXMLmodifyStudent.fxml"));
+                
+                Scene scene;
+        scene = new Scene(root);
+        
+                stage.setScene(scene);
+                stage.show();
+    }
+    
     @FXML
     private void removeStudentOnClick(ActionEvent event) throws IOException, SQLException{
             ModelEditStudent student=(ModelEditStudent)tables.getSelectionModel().getSelectedItem();
            
-            String sql1="DELETE FROM wniosek WHERE nr_indeksu = ? ";
-            String sql2="DELETE FROM oceny WHERE nr_indeksu = ? ";
-            String sql3="DELETE FROM przedmioty WHERE nr_indeksu = ? ";
-            String sql4="DELETE FROM student WHERE nr_indeksu = ? ";
+            String sql="DELETE FROM student WHERE nr_indeksu = ? ";
             
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Usuwanie studenta");
@@ -140,22 +154,11 @@ public class FXMLeditStudentController implements Initializable {
             try{
             
                 try (Connection myConn = ConnectionManager.getConnection()) {
-                 try (PreparedStatement st = myConn.prepareStatement(sql1)) {
+                 try (PreparedStatement st = myConn.prepareStatement(sql)) {
                     st.setString(1, student.getNr_indeksu());
                     st.executeUpdate();
                 }
-                 try (PreparedStatement st = myConn.prepareStatement(sql2)) {
-                    st.setString(1, student.getNr_indeksu());
-                    st.executeUpdate();
-                }
-                 try (PreparedStatement st = myConn.prepareStatement(sql3)) {
-                    st.setString(1, student.getNr_indeksu());
-                    st.executeUpdate();
-                }
-                 try (PreparedStatement st = myConn.prepareStatement(sql4)) {
-                    st.setString(1, student.getNr_indeksu());
-                    st.executeUpdate();
-                }
+               
                 myConn.close();
                 
             }

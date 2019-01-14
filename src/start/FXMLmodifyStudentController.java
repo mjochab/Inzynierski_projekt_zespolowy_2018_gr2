@@ -1,5 +1,9 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package start;
-
 
 import java.io.IOException;
 import java.net.URL;
@@ -17,7 +21,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -25,17 +28,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+/**
+ * FXML Controller class
+ *
+ * @author szcze
+ */
+public class FXMLmodifyStudentController implements Initializable {
 
-public class FXMLaddStudentController implements Initializable {
-    
-    @FXML
-    private Button Logout;
-    @FXML
-    private Button prevBtn;
-    @FXML
-    private Button confirm;
-    @FXML
-    private Button clearbtn;
     @FXML
     private TextField pesel;
     @FXML
@@ -43,11 +42,11 @@ public class FXMLaddStudentController implements Initializable {
     @FXML
     private TextField lastName;
     @FXML
-    private TextField indexNumber;
-    @FXML
     private TextField degreeCourse;
     @FXML
     private TextField password;
+    @FXML
+    private TextField indexNumber;
     @FXML
     private TextField street;
     @FXML
@@ -58,14 +57,53 @@ public class FXMLaddStudentController implements Initializable {
     private TextField city;
     @FXML
     private TextField phoneNumber;
+    @FXML
+    private Button confirm;
+    @FXML
+    private Button prevBtn;
+    @FXML
+    private Button Logout;
+    @FXML
+    private Button clearbtn;
+     @FXML
+    private TableView<ModelEditStudent> tables;
+    @FXML
+    private TableColumn<ModelEditStudent, String> col_nr_indeksu;
+    @FXML
+    private TableColumn<ModelEditStudent, String> col_imie;
+    @FXML
+    private TableColumn<ModelEditStudent, String> col_nazwisko;
     
-    
+
+ public static ObservableList<ModelEditStudent> oblists=FXCollections.observableArrayList();
+    @FXML
     @Override
-    
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }   
-    
+        try {
+            PreparedStatement st;
+            Connection myConn=ConnectionManager.getConnection();
+             st = myConn.prepareStatement("SELECT * FROM student");
+            
+            ResultSet rs= st.executeQuery();
+            
+            
+            
+            while (rs.next())   {
+                oblists.add(new ModelEditStudent(rs.getString("nr_indeksu"), rs.getString("imie"),
+                        rs.getString("nazwisko")));
+                
+            }
+             } catch (SQLException ex) {
+            System.out.println(ex.getMessage());}
+                col_nr_indeksu.setCellValueFactory(new PropertyValueFactory<ModelEditStudent, String>("nr_indeksu"));
+                col_imie.setCellValueFactory(new PropertyValueFactory<ModelEditStudent, String>("imie"));
+                col_nazwisko.setCellValueFactory(new PropertyValueFactory<ModelEditStudent, String>("nazwisko"));
+                
+                tables.setItems(null);
+                tables.setItems(oblists);
+                
+            }  
+
     @FXML
      private void handleButtonAction(ActionEvent event) throws IOException {
         Stage dialogStage = (Stage)Logout.getScene().getWindow();
@@ -96,11 +134,44 @@ public class FXMLaddStudentController implements Initializable {
                 stage.show();
     }
     
-    @FXML
-    private void addStudentOnClick(ActionEvent event)throws IOException, SQLException {
+     public void initialize(URL url, ResultSet rs) throws SQLException {
+            ModelEditStudent student=(ModelEditStudent)tables.getSelectionModel().getSelectedItem();
+            String query = "SELECT * FROM student WHERE nr_indeksu=?";
+            
+             try (Connection myConn = ConnectionManager.getConnection()) {
+                PreparedStatement st = myConn.prepareStatement(query);
+                st.setString(1, student.getNr_indeksu());
+                rs = st.executeQuery();
+                
+                while(rs.next()){
+                    pesel.setText(rs.getString("pesel"));
+                    name.setText(rs.getString("imie"));
+                    lastName.setText(rs.getString("nazwisko"));
+                    degreeCourse.setText(rs.getString("kierunek_s"));
+                    password.setText(rs.getString("haslo"));
+                    indexNumber.setText(rs.getString("nr_indeksu"));
+                    street.setText(rs.getString("ulica"));
+                    houseNumber.setText(rs.getString("nr_domu"));
+                    postCode.setText(rs.getString("kod_p"));
+                    city.setText(rs.getString("miasto"));
+                    phoneNumber.setText(rs.getString("nr_tel"));
+                    
+                   
+                    st.close();
+                    rs.close();    
+        }
+                     
+                    
+    } catch (SQLException e){
+                System.out.println(e);
+            }
+    
+    }
+      @FXML
+    private void modifyStudentOnClick(ActionEvent event)throws IOException, SQLException {
         
-        String sql = "INSERT INTO student (haslo, imie, nazwisko, pesel, kierunek_s, ulica, "
-                + "nr_domu, kod_p, miejscowosc, nr_tel, nr_indeksu) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "UPDATE student SET haslo=?, imie=?, nazwisko=?, pesel=?, kierunek_s=?,"
+                + "ulica=?, nr_domu=?, kod_p=?, miejscowosc=?, nr_tel=?, nr_indeksu=? WHERE nr_indeksu= '" + indexNumber.getText()+"' ";
         
         if(validateFields()){
         
@@ -121,10 +192,10 @@ public class FXMLaddStudentController implements Initializable {
                 st.setString(10, this.phoneNumber.getText());
                 st.setString(11, this.indexNumber.getText());
                 
-                Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle("Dodanie studenta");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Edycja studenta");
                 alert.setHeaderText(null);
-                alert.setContentText("Udało się poprawnie dodać studenta");
+                alert.setContentText("Student został edytowany");
                 alert.showAndWait();
                 
                 st.execute();
@@ -133,7 +204,7 @@ public class FXMLaddStudentController implements Initializable {
             } catch (SQLException e){
                 e.printStackTrace();
             }
-          this.password.setText(null);
+        this.password.setText(null);
         this.name.setText(null);
         this.lastName.setText(null);
         this.pesel.setText(null);
@@ -181,8 +252,5 @@ public class FXMLaddStudentController implements Initializable {
         }
         return true;
     }
-        
     }
-            
-            
-            
+
