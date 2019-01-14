@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 09 Sty 2019, 21:29
+-- Czas generowania: 14 Sty 2019, 17:58
 -- Wersja serwera: 10.1.28-MariaDB
 -- Wersja PHP: 7.1.11
 
@@ -80,17 +80,35 @@ INSERT INTO `oceny` (`id_oceny`, `ocena`, `nr_indeksu`, `nazwa`, `imie_w`, `nazw
 CREATE TABLE `przedmioty` (
   `id_przedmiotu` int(11) NOT NULL,
   `nazwa` varchar(25) COLLATE utf8_polish_ci NOT NULL,
-  `id_wykladowcy` int(11) NOT NULL,
-  `nr_indeksu` int(11) NOT NULL
+  `id_wykladowcy` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
 -- Zrzut danych tabeli `przedmioty`
 --
 
-INSERT INTO `przedmioty` (`id_przedmiotu`, `nazwa`, `id_wykladowcy`, `nr_indeksu`) VALUES
-(1, 'Matematyka', 1, 964634),
-(3, 'Ekonomia', 4, 964634);
+INSERT INTO `przedmioty` (`id_przedmiotu`, `nazwa`, `id_wykladowcy`) VALUES
+(1, 'Matematyka', 1),
+(3, 'Ekonomia', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `przedmioty_studenci`
+--
+
+CREATE TABLE `przedmioty_studenci` (
+  `id` int(11) NOT NULL,
+  `id_przedmiotu` int(11) NOT NULL,
+  `id_studenta` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Zrzut danych tabeli `przedmioty_studenci`
+--
+
+INSERT INTO `przedmioty_studenci` (`id`, `id_przedmiotu`, `id_studenta`) VALUES
+(1, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -219,9 +237,16 @@ ALTER TABLE `oceny`
 --
 ALTER TABLE `przedmioty`
   ADD PRIMARY KEY (`id_przedmiotu`),
-  ADD KEY `nr_indeksu` (`nr_indeksu`),
   ADD KEY `nazwa` (`nazwa`),
   ADD KEY `id_wykladowcy` (`id_wykladowcy`);
+
+--
+-- Indexes for table `przedmioty_studenci`
+--
+ALTER TABLE `przedmioty_studenci`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_przedmiotu` (`id_przedmiotu`),
+  ADD KEY `id_studenta` (`id_studenta`);
 
 --
 -- Indexes for table `przed_ocen`
@@ -267,7 +292,13 @@ ALTER TABLE `dziekanat`
 -- AUTO_INCREMENT dla tabeli `przedmioty`
 --
 ALTER TABLE `przedmioty`
-  MODIFY `id_przedmiotu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_przedmiotu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT dla tabeli `przedmioty_studenci`
+--
+ALTER TABLE `przedmioty_studenci`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT dla tabeli `student`
@@ -279,7 +310,7 @@ ALTER TABLE `student`
 -- AUTO_INCREMENT dla tabeli `wniosek`
 --
 ALTER TABLE `wniosek`
-  MODIFY `id_wniosku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_wniosku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT dla tabeli `wykladowca`
@@ -305,8 +336,14 @@ ALTER TABLE `oceny`
 -- Ograniczenia dla tabeli `przedmioty`
 --
 ALTER TABLE `przedmioty`
-  ADD CONSTRAINT `przedmioty_ibfk_1` FOREIGN KEY (`id_wykladowcy`) REFERENCES `wykladowca` (`id_wykladowcy`),
-  ADD CONSTRAINT `przedmioty_ibfk_2` FOREIGN KEY (`nr_indeksu`) REFERENCES `student` (`nr_indeksu`);
+  ADD CONSTRAINT `przedmioty_ibfk_1` FOREIGN KEY (`id_wykladowcy`) REFERENCES `wykladowca` (`id_wykladowcy`);
+
+--
+-- Ograniczenia dla tabeli `przedmioty_studenci`
+--
+ALTER TABLE `przedmioty_studenci`
+  ADD CONSTRAINT `przedmioty_studenci_ibfk_1` FOREIGN KEY (`id_przedmiotu`) REFERENCES `przedmioty` (`id_przedmiotu`),
+  ADD CONSTRAINT `przedmioty_studenci_ibfk_2` FOREIGN KEY (`id_studenta`) REFERENCES `student` (`id_studenta`);
 
 --
 -- Ograniczenia dla tabeli `przed_ocen`
