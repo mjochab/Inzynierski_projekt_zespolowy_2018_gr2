@@ -21,7 +21,8 @@ public class FXMLdziekanatController implements Initializable {
     private Button Logout;
     @FXML 
     private Button Wnioski;
-
+@FXML
+    private Button EditWykladowca;
 
   
     
@@ -69,6 +70,19 @@ public class FXMLdziekanatController implements Initializable {
                 
         Scene scene = new Scene(root);
                 
+                stage.setScene(scene);
+                stage.show();
+    }
+       @FXML
+    private void redirectToEditWykladowca(ActionEvent event) throws IOException {
+        Stage dialogStage = (Stage)EditWykladowca.getScene() .getWindow();
+        dialogStage.close();
+        
+        Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("FXMLeditWykladowca.fxml"));
+        
+        Scene scene = new Scene(root);
+        
                 stage.setScene(scene);
                 stage.show();
     }
