@@ -122,17 +122,42 @@ public class FXMLeditWykladowcaController implements Initializable {
     
       @FXML
     private void redirectToModifyWykladowca(ActionEvent event)throws IOException{
+        try{
+            ModelEditWykladowca wykladowca1=(ModelEditWykladowca)tables.getSelectionModel().getSelectedItem();
+            
         Stage dialogStage = (Stage)modifyBtn.getScene() .getWindow();
         dialogStage.close();
         
         Stage stage = new Stage();
-                Parent root = FXMLLoader.load(getClass().getResource("FXMLmodifyWykladowca.fxml"));
+                          FXMLLoader loader=new FXMLLoader();
+                
+               loader.setLocation(getClass().getResource("FXMLmodifyWykladowca.fxml"));
+             loader.load();
+               // Pane root= loader.load(getClass().getResource("/start/FXMLstudent.fxml").openStream());
+              
+               FXMLmodifyWykladowcaController display= loader.getController();
+                display.showTable(wykladowca1.getId_Wykladowcy());
+                
+                Parent root=loader.getRoot();
+                Scene scene;
+        scene = new Scene(root);
+        
+                stage.setScene(scene);
+                stage.show();}catch(NullPointerException ex){
+                             Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Uwaga");
+                alert.setHeaderText(null);
+                alert.setContentText("Proszę zaznaczyć wykładowcę!");
+                alert.showAndWait();
+                        Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("FXMLeditWykladowca.fxml"));
                 
                 Scene scene;
         scene = new Scene(root);
         
                 stage.setScene(scene);
                 stage.show();
+                }
     }
     @FXML
     private void removeWykladowcaOnClick(ActionEvent event) throws IOException, SQLException{

@@ -75,7 +75,7 @@ public class FXMLmodifyStudentController implements Initializable {
     private TableColumn<ModelEditStudent, String> col_nazwisko;
     
 
- public static ObservableList<ModelEditStudent> oblists=FXCollections.observableArrayList();
+ public ObservableList<ModelEditStudent> oblists=FXCollections.observableArrayList();
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -247,6 +247,7 @@ public class FXMLmodifyStudentController implements Initializable {
                 alert.setHeaderText(null);
                 alert.setContentText("Proszę wypełnić wszystkie pola");
                 alert.showAndWait();
+                
                 
                 return false;
         }

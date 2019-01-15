@@ -47,7 +47,7 @@ public class FXMLeditStudentController implements Initializable {
     private TableColumn<ModelEditStudent, String> col_nazwisko;
     
 
- public static ObservableList<ModelEditStudent> oblists=FXCollections.observableArrayList();
+ public ObservableList<ModelEditStudent> oblists=FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {

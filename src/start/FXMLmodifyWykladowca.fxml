@@ -8,7 +8,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="start.FXMLmodifyWykladowcaController">
    <children>
@@ -17,41 +16,23 @@
             <Image url="@tlo.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="288.0" layoutY="32.0" text="Edycja studenta" />
-      <Label layoutX="31.0" layoutY="72.0" text="Dane personalne studenta" />
-      <TextField fx:id="pesel" layoutX="31.0" layoutY="97.0" promptText="PESEL" />
-      <TextField fx:id="name" layoutX="31.0" layoutY="129.0" promptText="Imie" />
-      <TextField fx:id="lastName" layoutX="31.0" layoutY="161.0" promptText="Nazwisko" />
-      <Label layoutX="31.0" layoutY="206.0" text="Dane obsługowe" />
-      <TextField fx:id="degreeCourse" layoutX="31.0" layoutY="265.0" promptText="Kierunek studiów" />
-      <TextField fx:id="password" layoutX="31.0" layoutY="297.0" promptText="Hasło" />
-      <TextField fx:id="indexNumber" layoutX="31.0" layoutY="232.0" promptText="Nr indeksu" />
-      <Label layoutX="234.0" layoutY="72.0" text="Dane kontaktowe studenta" />
-      <Label layoutX="231.0" layoutY="101.0" text=" Adres zamieszkania">
-         <font>
-            <Font size="11.0" />
-         </font>
-      </Label>
-      <TextField fx:id="street" layoutX="231.0" layoutY="129.0" promptText="Ulica" />
-      <TextField fx:id="houseNumber" layoutX="231.0" layoutY="161.0" promptText="Nr domu i mieszkania" />
-      <TextField fx:id="postCode" layoutX="231.0" layoutY="194.0" promptText="Kod pocztowy" />
-      <TextField fx:id="city" layoutX="231.0" layoutY="230.0" promptText="Miejscowość" />
-      <Label layoutX="232.0" layoutY="270.0" text="Kontakt">
-         <font>
-            <Font size="11.0" />
-         </font>
-      </Label>
-      <TextField fx:id="phoneNumber" layoutX="231.0" layoutY="297.0" promptText="Nr telefonu" />
-      <Button fx:id="confirm" layoutX="282.0" layoutY="348.0" mnemonicParsing="false" onAction="#modifyStudentOnClick" text="Edytuj studenta" />
+      <Label layoutX="288.0" layoutY="32.0" text="Edycja wykładowcy" />
+      <Label layoutX="31.0" layoutY="72.0" text="Dane wykładowcy" />
+      <TextField fx:id="imie" layoutX="31.0" layoutY="97.0" promptText="Imię" />
+      <TextField fx:id="nazwisko" layoutX="31.0" layoutY="129.0" promptText="Nazwisko" />
+      <TextField fx:id="pesel" layoutX="31.0" layoutY="161.0" promptText="PESEL" />
+      <TextField fx:id="haslo" layoutX="31.0" layoutY="195.0" promptText="Hasło" />
       <Button fx:id="prevBtn" layoutX="52.0" layoutY="413.0" mnemonicParsing="false" onAction="#prevWindow" text="Powrót" />
+      <Button fx:id="confirm" layoutX="160.0" layoutY="338.0" mnemonicParsing="false" onAction="#modifyWykladowcaOnClick" text="Edytuj wykładowcę" />
       <Button fx:id="Logout" layoutX="539.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Wyloguj" />
-      <Button fx:id="clearbtn" layoutX="289.0" layoutY="388.0" mnemonicParsing="false" onAction="#clearFields" text="Wyczyść pola" />
-      <TableView fx:id="tables" layoutX="415.0" layoutY="83.0" prefHeight="248.0" prefWidth="233.0">
+      <Button fx:id="clearbtn" layoutX="166.0" layoutY="376.0" mnemonicParsing="false" onAction="#clearFields" text="Wyczyść pola" />
+      <TableView fx:id="tables" layoutX="262.0" layoutY="94.0" prefHeight="95.0" prefWidth="350.0">
          <columns>
-            <TableColumn fx:id="col_nr_indeksu" prefWidth="71.20001220703125" text="Nr Indeksu" />
-            <TableColumn fx:id="col_imie" prefWidth="80.79995727539062" text="Imie" />
-            <TableColumn fx:id="col_nazwisko" prefWidth="96.800048828125" text="Nazwisko" />
+            <TableColumn fx:id="col_id_wykladowcy" prefWidth="44.79998779296875" text="Id" />
+            <TableColumn fx:id="col_imie" prefWidth="138.4000244140625" text="Imie" />
+            <TableColumn fx:id="col_nazwisko" prefWidth="166.39999389648438" text="Nazwisko" />
          </columns>
       </TableView>
+      <TextField fx:id="nrid" layoutX="628.0" layoutY="419.0" prefHeight="1.0" prefWidth="0.0" />
    </children>
 </Pane>
