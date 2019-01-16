@@ -123,9 +123,7 @@ public class FXMLaddMarkController implements Initializable {
     }
 
     private boolean validateFields() {
-        if (newMark.getText().isEmpty() | index.getText().isEmpty()
-                | subject.getText().isEmpty() | name.getText().isEmpty()
-                | surname.getText().isEmpty() | id_w.getText().isEmpty()) {
+        if (newMark.getText().isEmpty()) {
 
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Uwaga");
