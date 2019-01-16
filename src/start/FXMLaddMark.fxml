@@ -19,18 +19,12 @@
       </ImageView>
       <Button fx:id="prevBtn" layoutX="37.0" layoutY="347.0" mnemonicParsing="false" onAction="#prevWindow" prefHeight="25.0" prefWidth="99.0" text="Wróć" />
       <Button fx:id="Logout" layoutX="527.0" layoutY="27.0" mnemonicParsing="false" onAction="#logout" prefHeight="25.0" prefWidth="99.0" text="Wyloguj" />
-      <Button fx:id="addBtn" layoutX="294.0" layoutY="269.0" mnemonicParsing="false" onAction="#addToMark" prefHeight="25.0" prefWidth="99.0" text="Dodaj" />
-      <Label layoutX="303.0" layoutY="183.0" text="Dodaj ocenę:">
+      <Button fx:id="addBtn" layoutX="307.0" layoutY="268.0" mnemonicParsing="false" onAction="#addToMark" prefHeight="25.0" prefWidth="99.0" text="Dodaj" />
+      <Label layoutX="310.0" layoutY="185.0" text="Dodaj ocenę:">
          <font>
             <Font size="14.0" />
          </font></Label>
-      <TextField fx:id="newMark" layoutX="303.0" layoutY="211.0" prefHeight="25.0" prefWidth="149.0" />
-      <Label layoutX="79.0" layoutY="126.0" text="Nazwisko wykładowcy">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-         <TextField fx:id="newMark" layoutX="276.0" layoutY="214.0" prefHeight="25.0" prefWidth="149.0" />
+      <TextField fx:id="newMark" layoutX="276.0" layoutY="214.0" prefHeight="25.0" prefWidth="149.0" />
       <Label layoutX="291.0" layoutY="52.0" text="Wybierz Przedmiot">
          <font>
             <Font size="14.0" />
