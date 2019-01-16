@@ -37,13 +37,9 @@ import static start.GradesController.oblist;
 public class FXMLeditMarkController implements Initializable {
 
     @FXML
-    private ComboBox<?> cbStudent;
-    @FXML
     private Button prevBtn;
     @FXML
     private Button Logout;
-    @FXML
-    private ListView<?> ListMark;
     @FXML
     private Button addMark;
     @FXML
@@ -118,21 +114,6 @@ public class FXMLeditMarkController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
         
-    }
-
-    @FXML
-    private void redirectToChangeMark(ActionEvent event) throws IOException {
-         Stage dialogStage = (Stage)prevBtn.getScene() .getWindow();
-        dialogStage.close();
-        
-        Stage stage = new Stage();
-                Parent root = FXMLLoader.load(getClass().getResource("FXMLchangeMark.fxml"));
-                
-                Scene scene;
-        scene = new Scene(root);
-        
-                stage.setScene(scene);
-                stage.show();
     }
 
     @FXML
