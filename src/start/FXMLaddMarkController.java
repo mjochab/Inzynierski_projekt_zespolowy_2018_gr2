@@ -9,8 +9,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +22,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -37,25 +42,22 @@ public class FXMLaddMarkController implements Initializable {
     private Button addBtn;
     @FXML
     private TextField newMark;
+    
+    private ObservableList<String> subjectList = FXCollections.observableArrayList();
+
+    private ObservableList<String> studentList = FXCollections.observableArrayList();
     @FXML
-    private TextField name;
+    private ComboBox btnChooseSubject;
     @FXML
-    private TextField subject;
-    @FXML
-    private TextField surname;
-    @FXML
-    private TextField id_w;
-    @FXML
-    private TextField index;
-    @FXML
-    private TextField id;
+    private ComboBox btnChooseStudent;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        dodajPrzedmiot();
+        chooseStudent();
     }    
 
     @FXML
@@ -90,8 +92,8 @@ public class FXMLaddMarkController implements Initializable {
 
     @FXML
    private void addToMark(ActionEvent event) throws IOException, SQLException {
-        String sql = "INSERT INTO oceny ( ocena, nr_indeksu, nazwa, imie_w, "
-                + "nazwisko_w, id_wykladowcy, id_oceny) VALUES (?,?,?,?,?,?,?)";
+         String sql = "INSERT INTO oceny ( ocena) VALUES (?)";
+        String sql1 = "INSERT INTO przed_ocen ( ocena) VALUES (?)";
         if (validateFields()) {
             try {
 
@@ -99,12 +101,6 @@ public class FXMLaddMarkController implements Initializable {
                     PreparedStatement st = myConn.prepareStatement(sql);
 
                     st.setString(1, this.newMark.getText());
-                    st.setString(2, this.index.getText());
-                    st.setString(3, this.subject.getText());
-                    st.setString(4, this.name.getText());
-                    st.setString(5, this.surname.getText());
-                    st.setString(6, this.id_w.getText());
-                    st.setString(7, this.id.getText());
 
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Dodanie oceny");
@@ -123,11 +119,6 @@ public class FXMLaddMarkController implements Initializable {
 
     private void clearFields(ActionEvent event) {
         this.newMark.setText(" ");
-        this.index.setText(" ");
-        this.subject.setText(" ");
-        this.name.setText(" ");
-        this.surname.setText(" ");
-        this.id_w.setText(" ");
 
     }
 
@@ -146,6 +137,71 @@ public class FXMLaddMarkController implements Initializable {
         }
         return true;
     }
+
+
+    @FXML
+    private void dodajPrzedmiot() {
+        String sqlSubjectName = "SELECT * FROM `przedmioty_studenci` inner join przedmioty on przedmioty_studenci.id_przedmiotu=przedmioty.id_przedmiotu inner join student on przedmioty_studenci.id_studenta=student.id_studenta ";
+
+        Connection myConn = null;
+        try {
+            myConn = ConnectionManager.getConnection();
+            PreparedStatement ps = myConn.prepareStatement(sqlSubjectName);
+            ResultSet rs = ps.executeQuery(sqlSubjectName);
+
+            while (rs.next()) {
+                if (!subjectList.contains(rs.getString("nazwa"))) {
+                    subjectList.add(rs.getString("nazwa"));
+                }
+            }
+
+            rs.close();
+            ps.close();
+            myConn.close();
+
+        } catch (SQLException ex) {
+            System.err.println("SQL ERR" + ex);
+        }
+
+        btnChooseSubject.setItems(subjectList);
+    }
+
+    @FXML
+    private void chooseStudent() {
+
+        btnChooseSubject.setOnAction(e -> {
+            System.out.println("user selected: " + btnChooseSubject.getValue());
+
+            String sqlStudentName = "SELECT * FROM `przedmioty_studenci` inner join przedmioty on przedmioty_studenci.id_przedmiotu=przedmioty.id_przedmiotu inner join student on przedmioty_studenci.id_studenta=student.id_studenta";
+
+            Connection myConn = null;
+            try {
+                myConn = ConnectionManager.getConnection();
+                PreparedStatement ps = myConn.prepareStatement(sqlStudentName);
+                // ps.setString(1, (String)btnChooseSubject.getSelectionModel().getSelectedItem());
+                ResultSet rs = ps.executeQuery(sqlStudentName);
+
+                while (rs.next()) {
+
+                    if (!studentList.contains(rs.getString("nr_indeksu"))) {
+
+                        studentList.add(rs.getString("nr_indeksu"));
+                    }
+
+                }
+
+                rs.close();
+                ps.close();
+                myConn.close();
+
+            } catch (SQLException ex) {
+                System.err.println("SQL ERR" + ex);
+
+            }
+        });
+        btnChooseStudent.setItems(studentList);
+    }
+
 }
 
 
