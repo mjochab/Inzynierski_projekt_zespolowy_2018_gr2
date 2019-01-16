@@ -65,6 +65,8 @@ public class FXMLmodifyStudentController implements Initializable {
     private Button Logout;
     @FXML
     private Button clearbtn;
+    @FXML
+    private Button selectStudent;
      @FXML
     private TableView<ModelEditStudent> tables;
     @FXML
@@ -133,15 +135,15 @@ public class FXMLmodifyStudentController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
     }
-    
-     public void initialize(URL url, ResultSet rs) throws SQLException {
+    @FXML
+     private void selectStudentOnClick(ActionEvent event) throws SQLException {
             ModelEditStudent student=(ModelEditStudent)tables.getSelectionModel().getSelectedItem();
             String query = "SELECT * FROM student WHERE nr_indeksu=?";
             
              try (Connection myConn = ConnectionManager.getConnection()) {
                 PreparedStatement st = myConn.prepareStatement(query);
                 st.setString(1, student.getNr_indeksu());
-                rs = st.executeQuery();
+                ResultSet rs = st.executeQuery();
                 
                 while(rs.next()){
                     pesel.setText(rs.getString("pesel"));
@@ -153,7 +155,7 @@ public class FXMLmodifyStudentController implements Initializable {
                     street.setText(rs.getString("ulica"));
                     houseNumber.setText(rs.getString("nr_domu"));
                     postCode.setText(rs.getString("kod_p"));
-                    city.setText(rs.getString("miasto"));
+                    city.setText(rs.getString("miejscowosc"));
                     phoneNumber.setText(rs.getString("nr_tel"));
                     
                    

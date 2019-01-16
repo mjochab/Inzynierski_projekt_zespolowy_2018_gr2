@@ -45,7 +45,7 @@ public class FXMLmodifyWykladowcaController implements Initializable {
     @FXML
     private TextField pesel;
     @FXML
-        private TextField nrid;
+    private TextField nrid;
     @FXML
     private Button confirm;
     @FXML
@@ -54,6 +54,10 @@ public class FXMLmodifyWykladowcaController implements Initializable {
     private Button Logout;
     @FXML
     private Button clearbtn;
+    @FXML
+    private Button selectBtn;
+    @FXML
+    private Button modifyBtn;
     @FXML
     private TableView<ModelEditWykladowca> tables;
     @FXML
@@ -64,39 +68,33 @@ public class FXMLmodifyWykladowcaController implements Initializable {
     private TableColumn<ModelEditWykladowca, String> col_nazwisko;
     
 
- public ObservableList<ModelEditWykladowca> oblists=FXCollections.observableArrayList();
-    @FXML
+ public ObservableList<ModelEditWykladowca> oblistt=FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-                
-            }  
-    
-    public void showTable(String nrid1){
-        nrid.setText(nrid1);
-                try {
+        try {
             PreparedStatement st;
             Connection myConn=ConnectionManager.getConnection();
-             st = myConn.prepareStatement("SELECT * FROM wykladowca WHERE id_wykladowcy=?");
-                st.setString(1, nrid.getText());
+             st = myConn.prepareStatement("SELECT * FROM wykladowca");
+            
             ResultSet rs= st.executeQuery();
             
             
             
             while (rs.next())   {
-                oblists.add(new ModelEditWykladowca(rs.getString("id_wykladowcy"), rs.getString("imie"),
+                oblistt.add(new ModelEditWykladowca(rs.getString("id_wykladowcy"), rs.getString("imie"),
                         rs.getString("nazwisko")));
                 
             }
              } catch (SQLException ex) {
             System.out.println(ex.getMessage());}
-                col_id_wykladowcy.setCellValueFactory(new PropertyValueFactory<ModelEditWykladowca, String>("Id_Wykladowcy"));
+                col_id_wykladowcy.setCellValueFactory(new PropertyValueFactory<ModelEditWykladowca, String>("id_Wykladowcy"));
                 col_imie.setCellValueFactory(new PropertyValueFactory<ModelEditWykladowca, String>("imie"));
                 col_nazwisko.setCellValueFactory(new PropertyValueFactory<ModelEditWykladowca, String>("nazwisko"));
                 
                 tables.setItems(null);
-                tables.setItems(oblists);
-    }
+                tables.setItems(oblistt);
+                
+            }  
 
     @FXML
      private void handleButtonAction(ActionEvent event) throws IOException {
@@ -128,11 +126,31 @@ public class FXMLmodifyWykladowcaController implements Initializable {
                 stage.show();
     }
     
-     public void initialize(URL url, ResultSet rs) throws SQLException {
+     @FXML
+      private void selectTeacherOnClick(ActionEvent event) throws SQLException {
+            ModelEditWykladowca wykladowca=(ModelEditWykladowca)tables.getSelectionModel().getSelectedItem();
+            String query = "SELECT * FROM wykladowca WHERE id_wykladowcy=?";
+            
+             try (Connection myConn = ConnectionManager.getConnection()) {
+                PreparedStatement st = myConn.prepareStatement(query);
+                st.setString(1, wykladowca.getId_Wykladowcy());
+                ResultSet rs = st.executeQuery();
+                
+                while(rs.next()){
+                    pesel.setText(rs.getString("pesel"));
+                    imie.setText(rs.getString("imie"));
+                    nazwisko.setText(rs.getString("nazwisko"));
+                    haslo.setText(rs.getString("haslo"));                 
+                    
+                   
+                    st.close();
+                    rs.close();    
+                }
+             }
+      }
     
     
-    }
-      @FXML
+    @FXML
     public void modifyWykladowcaOnClick(ActionEvent event)throws IOException, SQLException {
   
         String sql = "UPDATE wykladowca SET imie=?, nazwisko=?, haslo=?, pesel=? WHERE id_wykladowcy=?";
@@ -148,13 +166,13 @@ public class FXMLmodifyWykladowcaController implements Initializable {
                 st.setString(2, this.nazwisko.getText());
                 st.setString(3, this.haslo.getText());
                 st.setString(4, this.pesel.getText());
-                 st.setString(5, nrid.getText());
+                st.setString(5, nrid.getText());
                         st.executeUpdate();
               
    tables.getItems().removeAll(tables.getItems());  
               
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Edycja wykladowca");
+                alert.setTitle("Edycja wykladowcy");
                 alert.setHeaderText(null);
                 alert.setContentText("Wykładowca został edytowany");
                 alert.showAndWait();
@@ -177,7 +195,7 @@ public class FXMLmodifyWykladowcaController implements Initializable {
  
         
         } 
-         showTable(nrid.getText());
+      
     }
     
     @FXML

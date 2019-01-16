@@ -128,12 +128,14 @@ public class FXMLaddStudentController implements Initializable {
                 alert.showAndWait();
                 
                 st.execute();
+                
+                
             }
              
             } catch (SQLException e){
                 e.printStackTrace();
             }
-          this.password.setText(null);
+        this.password.setText(null);
         this.name.setText(null);
         this.lastName.setText(null);
         this.pesel.setText(null);
@@ -146,24 +148,12 @@ public class FXMLaddStudentController implements Initializable {
         this.indexNumber.setText(null);
         
         } 
+        
+        
     }
     
     @FXML
-    private void clearFields(ActionEvent event){
-        this.password.setText(null);
-        this.name.setText(null);
-        this.lastName.setText(null);
-        this.pesel.setText(null);
-        this.degreeCourse.setText(null);
-        this.street.setText(null);
-        this.houseNumber.setText(null);
-        this.postCode.setText(null);
-        this.city.setText(null);
-        this.phoneNumber.setText(null);
-        this.indexNumber.setText(null);
-    }
-    
-    private boolean validateFields(){
+     public boolean validateFields(){
         if(password.getText().isEmpty() | name.getText().isEmpty() |
                 lastName.getText().isEmpty() | pesel.getText().isEmpty() |
                 degreeCourse.getText().isEmpty() | street.getText().isEmpty() |
@@ -181,6 +171,26 @@ public class FXMLaddStudentController implements Initializable {
         }
         return true;
     }
+    
+    @FXML
+    private void clearFields(ActionEvent event){
+    
+            
+        this.password.setText(null);
+        this.name.setText(null);
+        this.lastName.setText(null);
+        this.pesel.setText(null);
+        this.degreeCourse.setText(null);
+        this.street.setText(null);
+        this.houseNumber.setText(null);
+        this.postCode.setText(null);
+        this.city.setText(null);
+        this.phoneNumber.setText(null);
+        this.indexNumber.setText(null);
+    
+    }
+    
+   
         
     }
             

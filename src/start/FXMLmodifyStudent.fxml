@@ -53,5 +53,6 @@
             <TableColumn fx:id="col_nazwisko" prefWidth="96.800048828125" text="Nazwisko" />
          </columns>
       </TableView>
+      <Button fx:id="selectStudent" layoutX="506.0" layoutY="348.0" mnemonicParsing="false" onAction="#selectStudentOnClick" text="Wybierz" />
    </children>
 </Pane>

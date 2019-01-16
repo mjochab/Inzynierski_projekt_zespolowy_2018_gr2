@@ -26,7 +26,7 @@
       <Button fx:id="confirm" layoutX="160.0" layoutY="338.0" mnemonicParsing="false" onAction="#modifyWykladowcaOnClick" text="Edytuj wykładowcę" />
       <Button fx:id="Logout" layoutX="539.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Wyloguj" />
       <Button fx:id="clearbtn" layoutX="166.0" layoutY="376.0" mnemonicParsing="false" onAction="#clearFields" text="Wyczyść pola" />
-      <TableView fx:id="tables" layoutX="262.0" layoutY="94.0" prefHeight="95.0" prefWidth="350.0">
+      <TableView fx:id="tables" layoutX="262.0" layoutY="94.0" prefHeight="206.0" prefWidth="350.0">
          <columns>
             <TableColumn fx:id="col_id_wykladowcy" prefWidth="44.79998779296875" text="Id" />
             <TableColumn fx:id="col_imie" prefWidth="138.4000244140625" text="Imie" />
@@ -34,5 +34,6 @@
          </columns>
       </TableView>
       <TextField fx:id="nrid" layoutX="628.0" layoutY="419.0" prefHeight="1.0" prefWidth="0.0" />
+      <Button fx:id="selectBtn" layoutX="411.0" layoutY="313.0" mnemonicParsing="false" onAction="#selectTeacherOnClick" text="Wybierz" />
    </children>
 </Pane>
