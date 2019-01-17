@@ -52,7 +52,7 @@ public class GradesController extends FXMLDocumentController implements Initiali
     @FXML
     private TableColumn<ModelGrades, String> col_id_przedmiotu;
 
-    public ObservableList<ModelGrades> oblist = FXCollections.observableArrayList();
+    public static ObservableList<ModelGrades> oblist = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
